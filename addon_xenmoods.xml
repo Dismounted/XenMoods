@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="xenmoods" title="XenMoods" version_string="1.0.0 Beta 1" version_id="1" url="" install_callback_class="XenMoods_Install" install_callback_method="install" uninstall_callback_class="XenMoods_Uninstall" uninstall_callback_method="uninstall">
+  <admin_navigation>
+    <navigation navigation_id="moods" parent_navigation_id="options" display_order="20" link="moods" admin_permission_id="mood" debug_only="0" hide_no_children="0"/>
+  </admin_navigation>
+  <admin_permissions>
+    <admin_permission admin_permission_id="mood" display_order="1"/>
+  </admin_permissions>
+  <admin_style_properties/>
+  <admin_templates>
+    <template title="mood_delete"><![CDATA[<xen:title>{xen:phrase confirm_deletion_of_mood}: {$mood.title}</xen:title>
+<xen:h1>{xen:phrase confirm_deletion_of_mood}</xen:h1>
+
+<xen:navigation>
+	<xen:breadcrumb href="{xen:adminlink 'moods/edit', $mood}">{$mood.title}</xen:breadcrumb>
+</xen:navigation>
+
+<xen:require css="delete_confirmation.css" />
+
+<xen:form action="{xen:adminlink 'moods/delete', $mood}" class="deleteConfirmForm">
+	<p>{xen:phrase please_confirm_that_you_want_to_delete_following_mood}:</p>
+	<strong><a href="{xen:adminlink 'moods/edit', $mood}">{$mood.title}</a></strong>
+
+	<xen:submitunit save="{xen:phrase delete_mood}" />
+
+	<input type="hidden" name="_xfConfirm" value="1" />
+</xen:form>]]></template>
+    <template title="mood_edit"><![CDATA[<xen:title>{xen:if '{$mood.mood_id}', '{xen:phrase edit_mood}: {$mood.title}', '{xen:phrase create_new_mood}'}</xen:title>
+
+<xen:form class="AutoValidator"
+	action="{xen:adminlink 'moods/save', $mood}"
+	data-formValidatorUrl="{xen:adminlink 'moods/save.json', $mood}"
+	data-fieldValidatorUrl="{xen:adminlink 'moods/validate-field.json', $mood}"
+	data-redirect="on">
+	
+	<xen:textboxunit label="{xen:phrase title}:" name="title" value="{$mood.title}" data-liveTitleTemplate="{xen:if {$mood.mood_id},
+		'{xen:phrase edit_mood}: <em>%s</em>',
+		'{xen:phrase create_new_mood}: <em>%s</em>'}" />
+	<xen:textboxunit label="{xen:phrase mood_image_url}:" name="image_url" value="{$mood.image_url}" />
+	
+	<xen:submitunit save="{xen:phrase save_mood}">
+		<xen:if is="{$mood.mood_id}"><a href="{xen:adminlink 'moods/delete', $mood}" class="button OverlayTrigger">{xen:phrase delete_mood}...</a></xen:if>
+	</xen:submitunit>
+</xen:form>]]></template>
+    <template title="mood_list"><![CDATA[<xen:title>{xen:phrase moods}</xen:title>
+
+<xen:topctrl><a href="{xen:adminlink moods/add}" class="button">+ {xen:phrase add_new_mood}</a></xen:topctrl>
+
+<xen:require css="filter_list.css" />
+<xen:require js="js/xenforo/filter_list.js" />
+
+<xen:form action="{xen:adminlink moods}" class="section">
+	<xen:if is="{$moods}">
+		<h2 class="subHeading">
+			<xen:include template="filter_list_controls" />
+			{xen:phrase moods}
+		</h2>
+		<ol class="FilterList">
+			<xen:foreach loop="$moods" value="$mood">
+				<xen:listitem
+					id="{$mood.mood_id}"
+					label="{$mood.title}"
+					href="{xen:adminlink 'moods/edit', $mood}"
+					linkstyle="padding-left: 24px; background-image: url('{$mood.image_url}')"
+					delete="{xen:adminlink 'moods/delete', $mood}">
+				</xen:listitem>
+			</xen:foreach>
+		</ol>
+
+		<p class="sectionFooter">{xen:phrase showing_x_of_y_items, 'count=<span class="FilterListCount">{xen:count $moods}</span>', 'total={xen:count $moods}'}</p>
+
+	<xen:else />
+		<div class="noResults">{xen:phrase no_moods_have_been_added_yet}</div>
+	</xen:if>
+</xen:form>]]></template>
+  </admin_templates>
+  <code_events/>
+  <code_event_listeners/>
+  <cron/>
+  <email_templates/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="add_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Add New Mood]]></phrase>
+    <phrase title="admin_navigation_moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
+    <phrase title="admin_permission_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Edit Moods]]></phrase>
+    <phrase title="confirm_deletion_of_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Deletion of Mood]]></phrase>
+    <phrase title="create_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Create New Mood]]></phrase>
+    <phrase title="delete_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Delete Mood]]></phrase>
+    <phrase title="edit_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Edit Mood]]></phrase>
+    <phrase title="moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
+    <phrase title="mood_image_url" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Image URL]]></phrase>
+    <phrase title="no_moods_have_been_added_yet" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[No moods have been added yet.]]></phrase>
+    <phrase title="please_confirm_that_you_want_to_delete_following_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to delete the following mood]]></phrase>
+    <phrase title="requested_mood_not_found" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[The requested mood could not be found.]]></phrase>
+    <phrase title="save_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Save Mood]]></phrase>
+    <phrase title="style_property_editorShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Display a user's mood under his/her avatar next to the quick reply editor.]]></phrase>
+    <phrase title="style_property_editorShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on QR Editor]]></phrase>
+    <phrase title="style_property_headerShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood in the user drop-down menu.]]></phrase>
+    <phrase title="style_property_headerShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood]]></phrase>
+    <phrase title="style_property_messageShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Display the mood of the message author.]]></phrase>
+    <phrase title="style_property_messageShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show Author Mood]]></phrase>
+    <phrase title="style_property_sidebarShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood in the sidebar block under "Signed in as" on the forum index.]]></phrase>
+    <phrase title="style_property_sidebarShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Sidebar]]></phrase>
+  </phrases>
+  <route_prefixes>
+    <route_type type="admin">
+      <prefix original_prefix="moods" class="XenMoods_Route_PrefixAdmin_Moods" build_link="data_only"/>
+    </route_type>
+  </route_prefixes>
+  <style_properties>
+    <property property_name="messageShowMood" property_type="scalar" definition="1" group_name="messageUserInfo" title="Show Author Mood" description="Display the mood of the message author." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="User Info"><![CDATA[1]]></property>
+    <property property_name="headerShowMood" property_type="scalar" definition="1" group_name="header" title="Show User Mood" description="Displays a user's mood in the user drop-down menu." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="XenMoods"><![CDATA[1]]></property>
+    <property property_name="sidebarShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Sidebar" description="Displays a user's mood in the sidebar block under &quot;Signed in as&quot; on the forum index." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="XenMoods"><![CDATA[1]]></property>
+    <property property_name="editorShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on QR Editor" description="Display a user's mood under his/her avatar next to the quick reply editor." css_components="" scalar_type="boolean" scalar_parameters="" display_order="110" sub_group="XenMoods"><![CDATA[1]]></property>
+  </style_properties>
+  <templates/>
+</addon>
