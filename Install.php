@@ -71,7 +71,7 @@ class XenMoods_Install
 	{
 		// the version IDs from which we should start/end the install process
 		$startVersionId = 1;
-		$endVersionId = $addOnData['versionId'];
+		$endVersionId = $addOnData['version_id'];
 
 		if ($existingAddOn)
 		{

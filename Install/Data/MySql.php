@@ -20,8 +20,8 @@ class XenMoods_Install_Data_MySql
 	 */
 	public static function getQueries($version)
 	{
-		$method = '_getQueriesVersion' . (int) $version;
-		if (method_exists(__CLASS__, $method))
+		$method = '_getQueriesVersion' . (int)$version;
+		if (method_exists(__CLASS__, $method) === false)
 		{
 			return;
 		}
@@ -39,7 +39,7 @@ class XenMoods_Install_Data_MySql
 		$queries = array();
 
 $queries[] = "
-	CREATE TABLE xf_xenmoods_mood (
+	CREATE TABLE xf_mood (
 		mood_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		title VARCHAR(50) NOT NULL,
 		image_url VARCHAR(200) NOT NULL,
