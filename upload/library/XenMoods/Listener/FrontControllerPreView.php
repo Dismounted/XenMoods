@@ -36,7 +36,15 @@ class XenMoods_Listener_FrontControllerPreView
 		// assumes init_dependencies listener runs correctly!
 		if ($controllerResponse instanceof XenForo_ControllerResponse_View AND XenForo_Application::getInstance()->offsetExists('moods'))
 		{
-			$controllerResponse->params['moods'] = $containerParams['moods'] = $this->_getMoodData();
+			$moodModel = $this->_getMoodModel();
+			$params = array(
+				'moods' => $this->_getMoodData(),
+				'canViewMoods' => $moodModel->canViewMoods(),
+				'canHaveMood' => $moodModel->canHaveMood()
+			);
+
+			array_merge($controllerResponse->params, $params);
+			array_merge($containerParams, $params);
 		}
 	}
 
@@ -48,5 +56,15 @@ class XenMoods_Listener_FrontControllerPreView
 	protected function _getMoodData()
 	{
 		return XenForo_Application::get('moods');
+	}
+
+	/**
+	 * Helper method to get the mood model.
+	 *
+	 * @return XenMoods_Model_Mood
+	 */
+	protected function _getMoodModel()
+	{
+		return XenForo_Model::create('XenMoods_Model_Mood');
 	}
 }

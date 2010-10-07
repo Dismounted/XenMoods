@@ -63,4 +63,44 @@ class XenMoods_Model_Mood extends XenForo_Model
 
 		return $moods;
 	}
+
+	/**
+	 * Determines if moods can be viewed with the given permissions. If no
+	 * permissions are specified, permissions are retrieved from the currently
+	 * visiting user.
+	 *
+	 * @param array Information about the inquiring user
+	 * @return boolean
+	 */
+	public function canViewMoods(array $viewingUser = null)
+	{
+		$this->standardizeViewingUserReference($viewingUser);
+
+		if (XenForo_Permission::hasPermission($viewingUser['permissions'], 'mood', 'view'))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Determines if a user can have a mood with the given permissions. If no
+	 * permissions are specified, permissions are retrieved from the currently
+	 * visiting user.
+	 *
+	 * @param array Information about the inquiring user
+	 * @return boolean
+	 */
+	public function canHaveMood(array $viewingUser = null)
+	{
+		$this->standardizeViewingUserReference($viewingUser);
+
+		if (XenForo_Permission::hasPermission($viewingUser['permissions'], 'mood', 'have'))
+		{
+			return true;
+		}
+
+		return false;
+	}
 }
