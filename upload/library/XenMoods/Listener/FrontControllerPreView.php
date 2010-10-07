@@ -32,6 +32,20 @@ class XenMoods_Listener_FrontControllerPreView
 	 */
 	protected function __construct(XenForo_FrontController $fc, XenForo_ControllerResponse_Abstract &$controllerResponse, XenForo_ViewRenderer_Abstract &$viewRenderer, array &$containerParams)
 	{
-		
+		// only execute if we are a public-facing view, very hackish!
+		if (strpos($controllerResponse->viewName, 'XenForo_ViewPublic') !== false)
+		{
+			$controllerResponse->params['moods'] = $this->_getMoodData();
+		}
+	}
+
+	/**
+	 * Helper function to get moods from data registry.
+	 *
+	 * @return array List of moods
+	 */
+	protected function _getMoodData()
+	{
+		return XenForo_Application::get('moods');
 	}
 }
