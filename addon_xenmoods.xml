@@ -61,7 +61,7 @@
 					id="{$mood.mood_id}"
 					label="{$mood.title}"
 					href="{xen:adminlink 'moods/edit', $mood}"
-					linkstyle="padding-left: 24px; background-image: url('{$mood.image_url}')"
+					linkstyle="padding-left: 110px; background-image: url('{$mood.image_url}')"
 					delete="{xen:adminlink 'moods/delete', $mood}">
 				</xen:listitem>
 			</xen:foreach>
