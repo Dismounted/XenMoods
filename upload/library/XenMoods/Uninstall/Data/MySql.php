@@ -16,10 +16,10 @@ class XenMoods_Uninstall_Data_MySql
 	 */
 	public static function getQueries($version)
 	{
-		$method = '_getQueriesVersion' . (int) $version;
-		if (method_exists(__CLASS__, $method))
+		$method = '_getQueriesVersion' . (int)$version;
+		if (method_exists(__CLASS__, $method) === false)
 		{
-			return;
+			return array();
 		}
 
 		return self::$method();

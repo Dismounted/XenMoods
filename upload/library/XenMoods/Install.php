@@ -89,6 +89,9 @@ class XenMoods_Install
 
 			$install->$method();
 		}
+
+		// rebuild caches
+		XenForo_Model::create('XenMoods_Model_Mood')->rebuildMoodCache();
 	}
 
 	/**

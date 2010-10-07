@@ -19,7 +19,7 @@ class XenMoods_Install_Data_MySql
 		$method = '_getQueriesVersion' . (int)$version;
 		if (method_exists(__CLASS__, $method) === false)
 		{
-			return;
+			return array();
 		}
 
 		return self::$method();
