@@ -10,6 +10,8 @@ class XenMoods_Listener_Init_Dependencies
 	/**
 	 * Initialise the code event
 	 *
+	 * @param XenForo_Dependencies_Abstract Current dependencies object
+	 * @param array Already pre-loaded data
 	 * @return void
 	 */
 	public static function init(XenForo_Dependencies_Abstract $dependencies, array $data)
