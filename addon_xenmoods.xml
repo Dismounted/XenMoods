@@ -86,8 +86,8 @@
       <permission_group permission_group_id="mood"/>
     </permission_groups>
     <permissions>
-      <permission permission_group_id="mood" permission_id="have" permission_type="flag" depend_permission_id="view" default_value="unset" interface_group_id="moodPermissions" display_order="20"/>
-      <permission permission_group_id="mood" permission_id="view" permission_type="flag" default_value="unset" interface_group_id="moodPermissions" display_order="10"/>
+      <permission permission_group_id="mood" permission_id="have" permission_type="flag" depend_permission_id="view" default_value="allow" interface_group_id="moodPermissions" display_order="20"/>
+      <permission permission_group_id="mood" permission_id="view" permission_type="flag" default_value="allow" interface_group_id="moodPermissions" display_order="10"/>
     </permissions>
     <interface_groups>
       <interface_group interface_group_id="moodPermissions" display_order="300"/>
