@@ -32,10 +32,11 @@ class XenMoods_Listener_FrontControllerPreView
 	 */
 	protected function __construct(XenForo_FrontController $fc, XenForo_ControllerResponse_Abstract &$controllerResponse, XenForo_ViewRenderer_Abstract &$viewRenderer, array &$containerParams)
 	{
-		// only execute if we are a public-facing view, very hackish!
-		if (strpos($controllerResponse->viewName, 'XenForo_ViewPublic') !== false)
+		// only execute if we are a public-facing view
+		// assumes init_dependencies listener runs correctly!
+		if ($controllerResponse instanceof XenForo_ControllerResponse_View AND XenForo_Application::getInstance()->offsetExists('moods'))
 		{
-			$controllerResponse->params['moods'] = $this->_getMoodData();
+			$controllerResponse->params['moods'] = $containerParams['moods'] = $this->_getMoodData();
 		}
 	}
 

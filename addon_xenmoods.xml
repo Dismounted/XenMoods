@@ -20,6 +20,7 @@
 <xen:form action="{xen:adminlink 'moods/delete', $mood}" class="deleteConfirmForm">
 	<p>{xen:phrase please_confirm_that_you_want_to_delete_following_mood}:</p>
 	<strong><a href="{xen:adminlink 'moods/edit', $mood}">{$mood.title}</a></strong>
+	<p>{xen:phrase all_users_will_move_to_default_mood}</p>
 
 	<xen:submitunit save="{xen:phrase delete_mood}" />
 
@@ -98,6 +99,7 @@
     <phrase title="add_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Add New Mood]]></phrase>
     <phrase title="admin_navigation_moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
     <phrase title="admin_permission_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Edit Moods]]></phrase>
+    <phrase title="all_users_will_move_to_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[All users using this mood will automatically switch to the default mood.]]></phrase>
     <phrase title="confirm_deletion_of_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Deletion of Mood]]></phrase>
     <phrase title="create_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Create New Mood]]></phrase>
     <phrase title="delete_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Delete Mood]]></phrase>
@@ -138,5 +140,22 @@
     <property property_name="profileShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Profile" description="Displays a user's mood on their profile." css_components="" scalar_type="boolean" scalar_parameters="" display_order="120" sub_group="XenMoods"><![CDATA[1]]></property>
     <property property_name="memberCardShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Member Card" description="Displays a user's mood on their member card pop-up." css_components="" scalar_type="boolean" scalar_parameters="" display_order="130" sub_group="XenMoods"><![CDATA[1]]></property>
   </style_properties>
-  <templates/>
+  <templates>
+    <template title="mood_display" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:if is="{$user.mood_id}">
+	<xen:require css="mood_display.css" />
+	<div class="userMood">
+		<img src="{$moods.{$user.mood_id}.image_url}" alt="{$moods.{$user.mood_id}.title}" />
+	</div>
+</xen:if>]]></template>
+    <template title="mood_display.css" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[.userMood
+{
+	padding-top: 10px;
+}
+
+.userInfo .userMood, .profilePage .userMood
+{
+	float: right;
+}
+]]></template>
+  </templates>
 </addon>
