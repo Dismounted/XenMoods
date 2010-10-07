@@ -76,7 +76,7 @@
   </admin_templates>
   <code_events/>
   <code_event_listeners>
-    <listener event_id="init_dependencies" execute_order="10" callback_class="XenMoods_Listener_Init_Dependencies" callback_method="init" active="1" description="Pre-loads all moods for use."/>
+    <listener event_id="init_dependencies" execute_order="10" callback_class="XenMoods_Listener_InitDependencies" callback_method="init" active="1" description="Pre-loads all moods for use."/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
