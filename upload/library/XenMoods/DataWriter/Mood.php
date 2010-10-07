@@ -3,9 +3,6 @@
  * Data writer for moods.
  *
  * @package XenMoods
- * @author Hanson Wong
- * @copyright (c) 2010 Hanson Wong
- * @license http://www.opensource.org/licenses/bsd-license.php
  */
 
 class XenMoods_DataWriter_Mood extends XenForo_DataWriter

@@ -3,9 +3,6 @@
  * Route prefix handler for moods in the admin control panel.
  *
  * @package XenMoods
- * @author Hanson Wong
- * @copyright (c) 2010 Hanson Wong
- * @license http://www.opensource.org/licenses/bsd-license.php
  */
 
 class XenMoods_Route_PrefixAdmin_Moods implements XenForo_Route_Interface

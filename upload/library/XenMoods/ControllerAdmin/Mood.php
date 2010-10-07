@@ -3,9 +3,6 @@
  * Controller to manage moods in the admin control panel.
  *
  * @package XenMoods
- * @author Hanson Wong
- * @copyright (c) 2010 Hanson Wong
- * @license http://www.opensource.org/licenses/bsd-license.php
  */
 
 class XenMoods_ControllerAdmin_Mood extends XenForo_ControllerAdmin_Abstract

@@ -1,12 +1,8 @@
 <?php
 /**
- * MySQL Schema for XenMoods. CREATE and ALTER queries cannot be run via the
- * XenForo database object.
+ * MySQL Schema for XenMoods installation.
  *
  * @package XenMoods
- * @author Hanson Wong
- * @copyright (c) 2010 Hanson Wong
- * @license http://www.opensource.org/licenses/bsd-license.php
  */
 
 class XenMoods_Install_Data_MySql
