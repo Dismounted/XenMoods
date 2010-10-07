@@ -5,7 +5,7 @@
  * @package XenMoods
  */
 
-class XenMoods_Listener_Init_Dependencies
+class XenMoods_Listener_InitDependencies
 {
 	/**
 	 * Initialise the code event

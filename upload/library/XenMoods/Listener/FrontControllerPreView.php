@@ -1,20 +1,22 @@
 <?php
 /**
- * XenMoods listener for init_dependencies code event.
+ * XenMoods listener for front_controller_pre_view code event.
  *
  * @package XenMoods
  */
 
-class XenMoods_Listener_Init_Dependencies
+class XenMoods_Listener_FrontControllerPreView
 {
 	/**
 	 * Initialise the code event
 	 *
-	 * @param XenForo_Dependencies_Abstract Current dependencies object
-	 * @param array Already pre-loaded data
+	 * @param XenForo_FrontController
+	 * @param XenForo_ControllerResponse_Abstract
+	 * @param XenForo_ViewRenderer_Abstract
+	 * @param array 
 	 * @return void
 	 */
-	public static function init(XenForo_Dependencies_Abstract $dependencies, array $data)
+	public static function init(XenForo_FrontController $fc, XenForo_ControllerResponse_Abstract &$controllerResponse, XenForo_ViewRenderer_Abstract &$viewRenderer, array &$containerParams)
 	{
 		new self($dependencies, $data);
 	}
