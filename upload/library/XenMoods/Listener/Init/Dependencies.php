@@ -10,7 +10,7 @@ class XenMoods_Listener_Init_Dependencies
 	/**
 	 * Initialise the code event
 	 *
-	 * @return XenMoods_Install
+	 * @return void
 	 */
 	public static function init(XenForo_Dependencies_Abstract $dependencies, array $data)
 	{
