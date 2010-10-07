@@ -14,7 +14,7 @@ class XenMoods_Listener_Dependencies
 	 * @param array Already pre-loaded data
 	 * @return void
 	 */
-	public static function initDependencies(XenForo_Dependencies_Abstract $dependencies, array $data)
+	public static function init(XenForo_Dependencies_Abstract $dependencies, array $data)
 	{
 		if ($dependencies instanceof XenForo_Dependencies_Public)
 		{
