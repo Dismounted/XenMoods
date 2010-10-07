@@ -11,24 +11,24 @@
 class XenMoods_Uninstall
 {
 	/**
-	* Instance manager.
-	*
-	* @var XenMoods_Uninstall
-	*/
+	 * Instance manager.
+	 *
+	 * @var XenMoods_Uninstall
+	 */
 	private static $_instance;
 
 	/**
-	* Database object
-	*
-	* @var Zend_Db_Adapter_Abstract
-	*/
+	 * Database object
+	 *
+	 * @var Zend_Db_Adapter_Abstract
+	 */
 	protected $_db;
 
 	/**
-	* Gets the uninstaller instance.
-	*
-	* @return XenMoods_Uninstall
-	*/
+	 * Gets the uninstaller instance.
+	 *
+	 * @return XenMoods_Uninstall
+	 */
 	public static final function getInstance()
 	{
 		if (!self::$_instance)
@@ -40,10 +40,10 @@ class XenMoods_Uninstall
 	}
 
 	/**
-	* Helper method to get the database object.
-	*
-	* @return Zend_Db_Adapter_Abstract
-	*/
+	 * Helper method to get the database object.
+	 *
+	 * @return Zend_Db_Adapter_Abstract
+	 */
 	protected function _getDb()
 	{
 		if ($this->_db === null)

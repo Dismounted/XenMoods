@@ -11,24 +11,24 @@
 class XenMoods_Install
 {
 	/**
-	* Instance manager.
-	*
-	* @var XenMoods_Install
-	*/
+	 * Instance manager.
+	 *
+	 * @var XenMoods_Install
+	 */
 	private static $_instance;
 
 	/**
-	* Database object
-	*
-	* @var Zend_Db_Adapter_Abstract
-	*/
+	 * Database object
+	 *
+	 * @var Zend_Db_Adapter_Abstract
+	 */
 	protected $_db;
 
 	/**
-	* Gets the installer instance.
-	*
-	* @return XenMoods_Install
-	*/
+	 * Gets the installer instance.
+	 *
+	 * @return XenMoods_Install
+	 */
 	public static final function getInstance()
 	{
 		if (!self::$_instance)
@@ -40,10 +40,10 @@ class XenMoods_Install
 	}
 
 	/**
-	* Helper method to get the database object.
-	*
-	* @return Zend_Db_Adapter_Abstract
-	*/
+	 * Helper method to get the database object.
+	 *
+	 * @return Zend_Db_Adapter_Abstract
+	 */
 	protected function _getDb()
 	{
 		if ($this->_db === null)

@@ -16,10 +16,10 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	protected $_existingDataErrorPhrase = 'requested_mood_not_found';
 
 	/**
-	* Gets the fields that are defined for the table. See parent for explanation.
-	*
-	* @return array
-	*/
+	 * Gets the fields that are defined for the table. See parent for explanation.
+	 *
+	 * @return array
+	 */
 	protected function _getFields()
 	{
 		return array(
@@ -36,12 +36,12 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	}
 
 	/**
-	* Gets the actual existing data out of data that was passed in. See parent for explanation.
-	*
-	* @param mixed
-	*
-	* @return array|false
-	*/
+	 * Gets the actual existing data out of data that was passed in. See parent for explanation.
+	 *
+	 * @param mixed
+	 *
+	 * @return array|false
+	 */
 	protected function _getExistingData($data)
 	{
 		if (!$id = $this->_getExistingPrimaryKey($data))
@@ -53,10 +53,10 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	}
 
 	/**
-	* Gets SQL condition to update the existing record.
-	*
-	* @return string
-	*/
+	 * Gets SQL condition to update the existing record.
+	 *
+	 * @return string
+	 */
 	protected function _getUpdateCondition($tableName)
 	{
 		return 'mood_id = ' . $this->_db->quote($this->getExisting('mood_id'));
