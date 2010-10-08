@@ -135,13 +135,13 @@ class XenMoods_ControllerAdmin_Mood extends XenForo_ControllerAdmin_Abstract
 	{
 		$moodId = $this->_input->filterSingle('mood_id', XenForo_Input::UINT);
 
-		$dw = XenForo_DataWriter::create('XenMoods_DataWriter_Mood');
 		if ($moodId)
 		{
+			$dw = XenForo_DataWriter::create('XenMoods_DataWriter_Mood');
 			$dw->setExistingData($moodId);
+			$dw->set('is_default', 1);
+			$dw->save();
 		}
-		$dw->set('is_default', 1);
-		$dw->save();
 
 		return $this->responseRedirect(
 			XenForo_ControllerResponse_Redirect::SUCCESS,

@@ -76,13 +76,28 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	}
 
 	/**
+	 * Pre-save handling.
+	 */
+	protected function _preSave()
+	{
+		if ($this->isInsert())
+		{
+			$moods = $this->_getMoodModel()->getAllMoods();
+			if (empty($moods))
+			{
+				$this->set('is_default', 1);
+			}
+		}
+	}
+
+	/**
 	 * Post-save handling.
 	 */
 	protected function _postSave()
 	{
 		$this->_rebuildMoodCache();
 
-		if ($this->_newData['is_default'])
+		if ($this->getNew('is_default'))
 		{
 			$this->_checkDefaultIsLone();
 		}
@@ -93,7 +108,7 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	 */
 	protected function _preDelete()
 	{
-		if ($this->_existingData['is_default'])
+		if ($this->getExisting('is_default'))
 		{
 			// a default mood cannot be removed!
 			$this->error(new XenForo_Phrase('cannot_delete_default_mood'), 'default');
@@ -126,7 +141,7 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	 */
 	protected function _disassociateMood()
 	{
-		$this->_getUserModel()->disassociateMood($this->_existingData['mood_id']);
+		$this->_getUserModel()->disassociateMood($this->getExisting('mood_id'));
 	}
 
 	/**
@@ -136,7 +151,7 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	 */
 	protected function _checkDefaultIsLone()
 	{
-		$this->_getMoodModel()->checkDefaultIsLone($this->_existingData['mood_id']);
+		$this->_getMoodModel()->checkDefaultIsLone($this->get('mood_id'));
 	}
 
 	/**
