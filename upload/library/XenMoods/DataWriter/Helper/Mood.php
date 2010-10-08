@@ -11,6 +11,8 @@ class XenMoods_DataWriter_Helper_Mood
 	 * Verifies that the provided integer is a valid mood ID
 	 *
 	 * @param integer $moodId
+	 * @param XenForo_DataWriter The current running data writer
+	 * @param string Field being affected
 	 *
 	 * @return boolean
 	 */

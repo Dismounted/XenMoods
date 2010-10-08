@@ -45,7 +45,7 @@ class XenMoods_Model_Mood extends XenForo_Model
 	public function getAllMoodsForCache()
 	{
 		return $this->fetchAllKeyed('
-			SELECT mood_id, title, image_url
+			SELECT mood_id, title, image_url, default
 			FROM xf_mood
 			ORDER BY mood_id
 		', 'mood_id');
@@ -72,6 +72,22 @@ class XenMoods_Model_Mood extends XenForo_Model
 	public function deleteMoodCache()
 	{
 		$this->_getDataRegistryModel()->delete('moods');
+	}
+
+	/**
+	 * Checks and sets to make sure there is only one default mood.
+	 *
+	 * @param integer The new default mood's ID
+	 *
+	 * @return void
+	 */
+	public function checkDefaultIsLone($moodId)
+	{
+		$this->_getDb()->query('
+			UPDATE xf_mood
+			SET default = 0
+			WHERE mood_id <> ?
+		', $moodId);
 	}
 
 	/**

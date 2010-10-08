@@ -64,6 +64,12 @@
 					href="{xen:adminlink 'moods/edit', $mood}"
 					linkstyle="padding-left: 110px; background-image: url('{$mood.image_url}')"
 					delete="{xen:adminlink 'moods/delete', $mood}">
+					<xen:html>
+						<xen:if is="!{$mood.default}">
+							<a href="{xen:adminlink 'moods/make-default', $mood}" class="secondaryContent">{xen:phrase make_default_mood}</a>
+						</xen:if>
+					</xen:html>
+					<xen:snippet>{xen:if "{$mood.default}", {xen:phrase default}}</xen:snippet>
 				</xen:listitem>
 			</xen:foreach>
 		</ol>
@@ -100,10 +106,12 @@
     <phrase title="admin_navigation_moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
     <phrase title="admin_permission_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Manage Moods]]></phrase>
     <phrase title="all_users_will_move_to_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[All users using this mood will automatically switch to the default mood.]]></phrase>
+    <phrase title="cannot_delete_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[A default mood cannot be deleted. Please assign another mood to be the default before deleting this one.]]></phrase>
     <phrase title="confirm_deletion_of_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Deletion of Mood]]></phrase>
     <phrase title="create_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Create New Mood]]></phrase>
     <phrase title="delete_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Delete Mood]]></phrase>
     <phrase title="edit_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Edit Mood]]></phrase>
+    <phrase title="make_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Make Default]]></phrase>
     <phrase title="moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
     <phrase title="mood_chooser" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Chooser]]></phrase>
     <phrase title="mood_image_url" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Image URL]]></phrase>

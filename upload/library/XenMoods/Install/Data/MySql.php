@@ -40,6 +40,7 @@ $queries[] = "
 		mood_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		title VARCHAR(50) NOT NULL,
 		image_url VARCHAR(200) NOT NULL,
+		default INT UNSIGNED NOT NULL DEFAULT 0,
 		PRIMARY KEY (mood_id)
 	) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci
 ";

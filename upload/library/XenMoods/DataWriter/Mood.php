@@ -24,12 +24,25 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	{
 		return array(
 			'xf_mood' => array(
-				'mood_id' => array('type' => self::TYPE_UINT, 'autoIncrement' => true),
-				'title' => array('type' => self::TYPE_STRING, 'required' => true, 'maxLength' => 50,
-						'requiredError' => 'please_enter_valid_title'
+				'mood_id' => array(
+					'type' => self::TYPE_UINT,
+					'autoIncrement' => true
 				),
-				'image_url' => array('type' => self::TYPE_STRING, 'required' => true, 'maxLength' => 200,
-						'requiredError' => 'please_enter_valid_url'
+				'title' => array(
+					'type' => self::TYPE_STRING,
+					'required' => true,
+					'maxLength' => 50,
+					'requiredError' => 'please_enter_valid_title'
+				),
+				'image_url' => array(
+					'type' => self::TYPE_STRING,
+					'required' => true,
+					'maxLength' => 200,
+					'requiredError' => 'please_enter_valid_url'
+				),
+				'default' => array(
+					'type' => self::TYPE_UINT,
+					'default' => 0
 				)
 			)
 		);
@@ -68,6 +81,23 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	protected function _postSave()
 	{
 		$this->_rebuildMoodCache();
+
+		if ($this->_newData['default'])
+		{
+			$this->_checkDefaultIsLone();
+		}
+	}
+
+	/**
+	 * Pre-delete handling.
+	 */
+	protected function _preDelete()
+	{
+		if ($this->_existingData['default'])
+		{
+			// a default mood cannot be removed!
+			$this->error(new XenForo_Phrase('cannot_delete_default_mood'), 'default');
+		}
 	}
 
 	/**
@@ -76,6 +106,7 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	protected function _postDelete()
 	{
 		$this->_rebuildMoodCache();
+		$this->_disassociateMood();
 	}
 
 	/**
@@ -87,10 +118,40 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	}
 
 	/**
-	 * @return XenForo_Model_Mood
+	 * Disassociates users from the current mood (i.e. reset to default).
+	 *
+	 * @param integer Mood ID
+	 *
+	 * @return void
+	 */
+	protected function _disassociateMood()
+	{
+		$this->_getUserModel()->disassociateMood($this->_existingData['mood_id']);
+	}
+
+	/**
+	 * Checks and sets to make sure there is only one default mood.
+	 *
+	 * @return void
+	 */
+	protected function _checkDefaultIsLone()
+	{
+		$this->_getMoodModel()->checkDefaultIsLone($this->_existingData['mood_id']);
+	}
+
+	/**
+	 * @return XenMoods_Model_Mood
 	 */
 	protected function _getMoodModel()
 	{
 		return $this->getModelFromCache('XenMoods_Model_Mood');
+	}
+
+	/**
+	 * @return XenMoods_Model_User
+	 */
+	protected function _getUserModel()
+	{
+		return $this->getModelFromCache('XenMoods_Model_User');
 	}
 }

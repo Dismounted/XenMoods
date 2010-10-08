@@ -127,6 +127,29 @@ class XenMoods_ControllerAdmin_Mood extends XenForo_ControllerAdmin_Abstract
 	}
 
 	/**
+	 * Makes an existing mood the default.
+	 *
+	 * @return XenForo_Controller_ResponseAbstract
+	 */
+	public function actionMakeDefault()
+	{
+		$moodId = $this->_input->filterSingle('mood_id', XenForo_Input::UINT);
+
+		$dw = XenForo_DataWriter::create('XenMoods_DataWriter_Mood');
+		if ($moodId)
+		{
+			$dw->setExistingData($moodId);
+		}
+		$dw->set('default', 1);
+		$dw->save();
+
+		return $this->responseRedirect(
+			XenForo_ControllerResponse_Redirect::SUCCESS,
+			XenForo_Link::buildAdminLink('moods')
+		);
+	}
+
+	/**
 	 * Gets a valid mood or throws an exception.
 	 *
 	 * @param string $moodId
