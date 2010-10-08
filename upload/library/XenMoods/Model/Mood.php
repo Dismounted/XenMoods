@@ -65,6 +65,16 @@ class XenMoods_Model_Mood extends XenForo_Model
 	}
 
 	/**
+	 * Deletes the mood cache. Mainly used for uninstallation.
+	 *
+	 * @return void
+	 */
+	public function deleteMoodCache()
+	{
+		$this->_getDataRegistryModel()->delete('moods');
+	}
+
+	/**
 	 * Determines if moods can be viewed with the given permissions. If no
 	 * permissions are specified, permissions are retrieved from the currently
 	 * visiting user.

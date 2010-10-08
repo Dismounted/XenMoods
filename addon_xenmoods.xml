@@ -98,7 +98,7 @@
   <phrases>
     <phrase title="add_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Add New Mood]]></phrase>
     <phrase title="admin_navigation_moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
-    <phrase title="admin_permission_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Edit Moods]]></phrase>
+    <phrase title="admin_permission_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Manage Moods]]></phrase>
     <phrase title="all_users_will_move_to_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[All users using this mood will automatically switch to the default mood.]]></phrase>
     <phrase title="confirm_deletion_of_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Deletion of Mood]]></phrase>
     <phrase title="create_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Create New Mood]]></phrase>

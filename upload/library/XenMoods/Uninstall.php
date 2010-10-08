@@ -80,6 +80,9 @@ class XenMoods_Uninstall
 
 			$uninstall->$method();
 		}
+
+		// delete caches
+		XenForo_Model::create('XenMoods_Model_Mood')->deleteMoodCache();
 	}
 
 	/**
