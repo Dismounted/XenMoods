@@ -65,11 +65,11 @@
 					linkstyle="padding-left: 110px; background-image: url('{$mood.image_url}')"
 					delete="{xen:adminlink 'moods/delete', $mood}">
 					<xen:html>
-						<xen:if is="!{$mood.default}">
+						<xen:if is="!{$mood.is_default}">
 							<a href="{xen:adminlink 'moods/make-default', $mood}" class="secondaryContent">{xen:phrase make_default_mood}</a>
 						</xen:if>
 					</xen:html>
-					<xen:snippet>{xen:if "{$mood.default}", {xen:phrase default}}</xen:snippet>
+					<xen:snippet>{xen:if "{$mood.is_default}", {xen:phrase default}}</xen:snippet>
 				</xen:listitem>
 			</xen:foreach>
 		</ol>

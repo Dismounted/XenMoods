@@ -40,7 +40,7 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 					'maxLength' => 200,
 					'requiredError' => 'please_enter_valid_url'
 				),
-				'default' => array(
+				'is_default' => array(
 					'type' => self::TYPE_UINT,
 					'default' => 0
 				)
@@ -82,7 +82,7 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	{
 		$this->_rebuildMoodCache();
 
-		if ($this->_newData['default'])
+		if ($this->_newData['is_default'])
 		{
 			$this->_checkDefaultIsLone();
 		}
@@ -93,7 +93,7 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	 */
 	protected function _preDelete()
 	{
-		if ($this->_existingData['default'])
+		if ($this->_existingData['is_default'])
 		{
 			// a default mood cannot be removed!
 			$this->error(new XenForo_Phrase('cannot_delete_default_mood'), 'default');

@@ -140,7 +140,7 @@ class XenMoods_ControllerAdmin_Mood extends XenForo_ControllerAdmin_Abstract
 		{
 			$dw->setExistingData($moodId);
 		}
-		$dw->set('default', 1);
+		$dw->set('is_default', 1);
 		$dw->save();
 
 		return $this->responseRedirect(

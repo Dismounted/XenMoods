@@ -45,7 +45,7 @@ class XenMoods_Model_Mood extends XenForo_Model
 	public function getAllMoodsForCache()
 	{
 		return $this->fetchAllKeyed('
-			SELECT mood_id, title, image_url, default
+			SELECT mood_id, title, image_url, is_default
 			FROM xf_mood
 			ORDER BY mood_id
 		', 'mood_id');
@@ -85,7 +85,7 @@ class XenMoods_Model_Mood extends XenForo_Model
 	{
 		$this->_getDb()->query('
 			UPDATE xf_mood
-			SET default = 0
+			SET is_default = 0
 			WHERE mood_id <> ?
 		', $moodId);
 	}
