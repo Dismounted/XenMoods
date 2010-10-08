@@ -62,6 +62,7 @@ class XenMoods_Install
 	 *
 	 * @param array Information about the existing version (if upgrading)
 	 * @param array Information about the current version being installed
+	 *
 	 * @return void
 	 */
 	public static function install($existingAddOn, $addOnData)

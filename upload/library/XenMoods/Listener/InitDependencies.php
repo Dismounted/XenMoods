@@ -12,6 +12,7 @@ class XenMoods_Listener_InitDependencies
 	 *
 	 * @param XenForo_Dependencies_Abstract
 	 * @param array Already pre-loaded data
+	 *
 	 * @return void
 	 */
 	public static function init(XenForo_Dependencies_Abstract $dependencies, array $data)
@@ -24,6 +25,7 @@ class XenMoods_Listener_InitDependencies
 	 *
 	 * @param XenForo_Dependencies_Abstract
 	 * @param array Already pre-loaded data
+	 *
 	 * @return void
 	 */
 	protected function __construct(XenForo_Dependencies_Abstract $dependencies, array $data)

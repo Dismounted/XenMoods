@@ -14,6 +14,7 @@ class XenMoods_Listener_FrontControllerPreView
 	 * @param XenForo_ControllerResponse_Abstract
 	 * @param XenForo_ViewRenderer_Abstract
 	 * @param array Parameters used to help prepare the container
+	 *
 	 * @return void
 	 */
 	public static function init(XenForo_FrontController $fc, XenForo_ControllerResponse_Abstract &$controllerResponse, XenForo_ViewRenderer_Abstract &$viewRenderer, array &$containerParams)
@@ -28,6 +29,7 @@ class XenMoods_Listener_FrontControllerPreView
 	 * @param XenForo_ControllerResponse_Abstract
 	 * @param XenForo_ViewRenderer_Abstract
 	 * @param array Parameters used to help prepare the container
+	 *
 	 * @return void
 	 */
 	protected function __construct(XenForo_FrontController $fc, XenForo_ControllerResponse_Abstract &$controllerResponse, XenForo_ViewRenderer_Abstract &$viewRenderer, array &$containerParams)

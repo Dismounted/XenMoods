@@ -70,6 +70,7 @@ class XenMoods_Model_Mood extends XenForo_Model
 	 * visiting user.
 	 *
 	 * @param array Information about the inquiring user
+	 *
 	 * @return boolean
 	 */
 	public function canViewMoods(array $viewingUser = null)
@@ -90,6 +91,7 @@ class XenMoods_Model_Mood extends XenForo_Model
 	 * visiting user.
 	 *
 	 * @param array Information about the inquiring user
+	 *
 	 * @return boolean
 	 */
 	public function canHaveMood(array $viewingUser = null)

@@ -11,6 +11,7 @@ class XenMoods_Install_Data_MySql
 	 * Fetches the appropriate queries.
 	 *
 	 * @param integer Version ID of queries to fetch
+	 *
 	 * @return array List of queries to run
 	 * @return void Nothing if called method doesn't exist
 	 */

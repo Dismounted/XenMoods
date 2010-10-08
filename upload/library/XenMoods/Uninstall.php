@@ -58,6 +58,7 @@ class XenMoods_Uninstall
 	 * Begins the uninstallation process and runs uninstall routines.
 	 *
 	 * @param array Information about the (now uninstalled) add-on
+	 *
 	 * @return void
 	 */
 	public static function uninstall($addOnData)

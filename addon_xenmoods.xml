@@ -105,6 +105,7 @@
     <phrase title="delete_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Delete Mood]]></phrase>
     <phrase title="edit_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Edit Mood]]></phrase>
     <phrase title="moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
+    <phrase title="mood_chooser" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Chooser]]></phrase>
     <phrase title="mood_image_url" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Image URL]]></phrase>
     <phrase title="no_moods_have_been_added_yet" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[No moods have been added yet.]]></phrase>
     <phrase title="permission_group_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
@@ -112,8 +113,10 @@
     <phrase title="permission_mood_have" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Have Mood]]></phrase>
     <phrase title="permission_mood_view" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can View Moods]]></phrase>
     <phrase title="please_confirm_that_you_want_to_delete_following_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to delete the following mood]]></phrase>
+    <phrase title="please_select_valid_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please select a valid mood.]]></phrase>
     <phrase title="requested_mood_not_found" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[The requested mood could not be found.]]></phrase>
     <phrase title="save_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Save Mood]]></phrase>
+    <phrase title="select_mood_you_are_currently_in" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Select the mood you are currently in]]></phrase>
     <phrase title="style_property_editorShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Display a user's mood under his/her avatar next to the quick reply editor.]]></phrase>
     <phrase title="style_property_editorShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on QR Editor]]></phrase>
     <phrase title="style_property_headerShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood in the user drop-down menu.]]></phrase>
@@ -131,6 +134,9 @@
     <route_type type="admin">
       <prefix original_prefix="moods" class="XenMoods_Route_PrefixAdmin_Moods" build_link="data_only"/>
     </route_type>
+    <route_type type="public">
+      <prefix original_prefix="moods" class="XenMoods_Route_Prefix_Moods" build_link="none"/>
+    </route_type>
   </route_prefixes>
   <style_properties>
     <property property_name="messageShowMood" property_type="scalar" definition="1" group_name="messageUserInfo" title="Show Author Mood" description="Display the mood of the message author." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="User Info"><![CDATA[1]]></property>
@@ -141,10 +147,52 @@
     <property property_name="memberCardShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Member Card" description="Displays a user's mood on their member card pop-up." css_components="" scalar_type="boolean" scalar_parameters="" display_order="130" sub_group="XenMoods"><![CDATA[1]]></property>
   </style_properties>
   <templates>
-    <template title="mood_display" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:if is="{$user.mood_id}">
+    <template title="mood_chooser" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>
+
+<xen:require css="chooser_overlay.css" />
+<xen:require css="mood_chooser.css" />
+
+<div class="section moodChooser" data-overlayClass="chooserOverlay">
+
+	<h3 class="subHeading">{xen:phrase select_mood_you_are_currently_in}</h3>
+
+	<ol class="primaryContent chooserColumns threeColumns">
+
+		<xen:foreach loop="$moods" value="$mood">
+			<li{xen:if "{$selected} == '{$mood.mood_id}'", ' class="currentMood"'}>
+				<a href="{xen:link 'moods/mood-chooser', '', 'mood_id={$mood.mood_id}', '_xfToken={$visitor.csrf_token_page}', 'redirect={$redirect}'}">
+					<img src="{$mood.image_url}" alt="{$mood.title}" />
+				</a>
+			</li>
+		</xen:foreach>
+
+	</ol>
+
+	<div class="sectionFooter overlayOnly"><a class="button primary OverlayCloser">{xen:phrase cancel}</a></div>
+</div>]]></template>
+    <template title="mood_chooser.css" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[.moodChooser li img
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.moodChooser .currentMood a
+{
+	background-color: {xen:property primaryLighterStill};
+	text-decoration: none;
+}]]></template>
+    <template title="mood_display" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:if is="{$user.mood_id} && {$canViewMoods}">
 	<xen:require css="mood_display.css" />
+
 	<div class="userMood">
-		<img src="{$moods.{$user.mood_id}.image_url}" alt="{$moods.{$user.mood_id}.title}" />
+		<xen:if is="{$visitor.user_id} == {$user.user_id} && {$canHaveMood}">
+			<a href="{xen:link moods/mood-chooser, '', 'selected={$user.mood_id}', 'redirect={$requestPaths.requestUri}'}" class="OverlayTrigger Tooltip" title="{xen:phrase mood_chooser}" data-offsetY="-8">
+				<img src="{$moods.{$user.mood_id}.image_url}" alt="{$moods.{$user.mood_id}.title}" />
+			</a>
+		<xen:else />
+			<img src="{$moods.{$user.mood_id}.image_url}" alt="{$moods.{$user.mood_id}.title}" />
+		</xen:if>
 	</div>
 </xen:if>]]></template>
     <template title="mood_display.css" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[.userMood
@@ -155,7 +203,6 @@
 .userInfo .userMood, .profilePage .userMood
 {
 	float: right;
-}
-]]></template>
+}]]></template>
   </templates>
 </addon>
