@@ -34,7 +34,7 @@ class XenMoods_Listener_FrontControllerPreView
 	{
 		// only execute if we are a public-facing view
 		// assumes init_dependencies listener runs correctly!
-		if ($controllerResponse instanceof XenForo_ControllerResponse_View AND XenForo_Application::getInstance()->offsetExists('moods'))
+		if ($controllerResponse instanceof XenForo_ControllerResponse_View AND XenForo_Application::isRegistered('moods'))
 		{
 			$moodModel = $this->_getMoodModel();
 			$params = array(
@@ -43,8 +43,8 @@ class XenMoods_Listener_FrontControllerPreView
 				'canHaveMood' => $moodModel->canHaveMood()
 			);
 
-			array_merge($controllerResponse->params, $params);
-			array_merge($containerParams, $params);
+			$controllerResponse->params = array_merge($controllerResponse->params, $params);
+			$containerParams = array_merge($containerParams, $params);
 		}
 	}
 
