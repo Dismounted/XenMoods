@@ -96,7 +96,7 @@ class XenMoods_ControllerAdmin_Mood extends XenForo_ControllerAdmin_Abstract
 		$this->_assertPostOnly();
 
 		return $this->_validateField('XenMoods_DataWriter_Mood', array(
-			'existingDataKey' => $this->_input->filterSingle('mood_id', XenForo_Input::INT)
+			'existingDataKey' => $this->_input->filterSingle('mood_id', XenForo_Input::UINT)
 		));
 	}
 
@@ -133,20 +133,30 @@ class XenMoods_ControllerAdmin_Mood extends XenForo_ControllerAdmin_Abstract
 	 */
 	public function actionMakeDefault()
 	{
-		$moodId = $this->_input->filterSingle('mood_id', XenForo_Input::UINT);
-
-		if ($moodId)
+		if ($this->isConfirmedPost())
 		{
+			$moodId = $this->_input->filterSingle('mood_id', XenForo_Input::UINT);
+
 			$dw = XenForo_DataWriter::create('XenMoods_DataWriter_Mood');
 			$dw->setExistingData($moodId);
-			$dw->set('is_default', 1);
+			$dw->set('is_default', true);
 			$dw->save();
-		}
 
-		return $this->responseRedirect(
-			XenForo_ControllerResponse_Redirect::SUCCESS,
-			XenForo_Link::buildAdminLink('moods')
-		);
+			return $this->responseRedirect(
+				XenForo_ControllerResponse_Redirect::SUCCESS,
+				XenForo_Link::buildAdminLink('moods')
+			);
+		}
+		else
+		{
+			$moodId = $this->_input->filterSingle('mood_id', XenForo_Input::UINT);
+			$mood = $this->_getMoodOrError($moodId);
+
+			$viewParams = array(
+				'mood' => $mood
+			);
+			return $this->responseView('XenMoods_ViewAdmin_Mood_Make_Default', 'mood_make_default', $viewParams);
+		}
 	}
 
 	/**

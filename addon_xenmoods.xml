@@ -63,13 +63,13 @@
 					label="{$mood.title}"
 					href="{xen:adminlink 'moods/edit', $mood}"
 					linkstyle="padding-left: 110px; background-image: url('{$mood.image_url}')"
+					snippet="{xen:if {$mood.is_default}, {xen:phrase default}}"
 					delete="{xen:adminlink 'moods/delete', $mood}">
 					<xen:html>
 						<xen:if is="!{$mood.is_default}">
-							<a href="{xen:adminlink 'moods/make-default', $mood}" class="secondaryContent">{xen:phrase make_default_mood}</a>
+							<a href="{xen:adminlink 'moods/make-default', $mood}" class="secondaryContent OverlayTrigger">{xen:phrase make_default_mood}</a>
 						</xen:if>
 					</xen:html>
-					<xen:snippet>{xen:if "{$mood.is_default}", {xen:phrase default}}</xen:snippet>
 				</xen:listitem>
 			</xen:foreach>
 		</ol>
@@ -79,6 +79,23 @@
 	<xen:else />
 		<div class="noResults">{xen:phrase no_moods_have_been_added_yet}</div>
 	</xen:if>
+</xen:form>]]></template>
+    <template title="mood_make_default"><![CDATA[<xen:title>{xen:phrase confirm_selection_default_mood}: {$mood.title}</xen:title>
+<xen:h1>{xen:phrase confirm_selection_default_mood}</xen:h1>
+
+<xen:navigation>
+	<xen:breadcrumb href="{xen:adminlink 'moods/edit', $mood}">{$mood.title}</xen:breadcrumb>
+</xen:navigation>
+
+<xen:require css="delete_confirmation.css" />
+
+<xen:form action="{xen:adminlink 'moods/make-default', $mood}" class="deleteConfirmForm">
+	<p>{xen:phrase please_confirm_that_you_want_to_mark_following_mood_default}:</p>
+	<strong><a href="{xen:adminlink 'moods/edit', $mood}">{$mood.title}</a></strong>
+
+	<xen:submitunit save="{xen:phrase make_default_mood}" />
+
+	<input type="hidden" name="_xfConfirm" value="1" />
 </xen:form>]]></template>
   </admin_templates>
   <code_events/>
@@ -108,6 +125,7 @@
     <phrase title="all_users_will_move_to_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[All users using this mood will automatically switch to the default mood.]]></phrase>
     <phrase title="cannot_delete_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[A default mood cannot be deleted. Please assign another mood to be the default before deleting this one.]]></phrase>
     <phrase title="confirm_deletion_of_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Deletion of Mood]]></phrase>
+    <phrase title="confirm_selection_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Selection of Default Mood]]></phrase>
     <phrase title="create_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Create New Mood]]></phrase>
     <phrase title="delete_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Delete Mood]]></phrase>
     <phrase title="edit_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Edit Mood]]></phrase>
@@ -121,6 +139,7 @@
     <phrase title="permission_mood_have" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Have Mood]]></phrase>
     <phrase title="permission_mood_view" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can View Moods]]></phrase>
     <phrase title="please_confirm_that_you_want_to_delete_following_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to delete the following mood]]></phrase>
+    <phrase title="please_confirm_that_you_want_to_mark_following_mood_default" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to mark the following mood as default]]></phrase>
     <phrase title="please_select_valid_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please select a valid mood.]]></phrase>
     <phrase title="requested_mood_not_found" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[The requested mood could not be found.]]></phrase>
     <phrase title="save_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Save Mood]]></phrase>
@@ -166,7 +185,7 @@
 
 	<ol class="primaryContent chooserColumns threeColumns">
 
-		<xen:foreach loop="$moods" value="$mood">
+		<xen:foreach loop="$moods" key="$moodId" value="$mood">
 			<li{xen:if "{$selected} == '{$mood.mood_id}'", ' class="currentMood"'}>
 				<a href="{xen:link 'moods/mood-chooser', '', 'mood_id={$mood.mood_id}', '_xfToken={$visitor.csrf_token_page}', 'redirect={$redirect}'}">
 					<img src="{$mood.image_url}" alt="{$mood.title}" />
@@ -190,16 +209,18 @@
 	background-color: {xen:property primaryLighterStill};
 	text-decoration: none;
 }]]></template>
-    <template title="mood_display" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:if is="{$user.mood_id} && {$canViewMoods}">
+    <template title="mood_display" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:if is="{$canViewMoods}">
 	<xen:require css="mood_display.css" />
+
+	<xen:set var="$moodImageUrl">{xen:if "{$user.mood_id}", {$moods.{$user.mood_id}.image_url}, {$moods.{$defaultMoodId}.image_url}}</xen:set>
 
 	<div class="userMood">
 		<xen:if is="{$visitor.user_id} == {$user.user_id} && {$canHaveMood}">
 			<a href="{xen:link moods/mood-chooser, '', 'selected={$user.mood_id}', 'redirect={$requestPaths.requestUri}'}" class="OverlayTrigger Tooltip" title="{xen:phrase mood_chooser}" data-offsetY="-8">
-				<img src="{$moods.{$user.mood_id}.image_url}" alt="{$moods.{$user.mood_id}.title}" />
+				<img src="{$moodImageUrl}" alt="{$moods.{$user.mood_id}.title}" />
 			</a>
 		<xen:else />
-			<img src="{$moods.{$user.mood_id}.image_url}" alt="{$moods.{$user.mood_id}.title}" />
+			<img src="{$moodImageUrl}" alt="{$moods.{$user.mood_id}.title}" />
 		</xen:if>
 	</div>
 </xen:if>]]></template>

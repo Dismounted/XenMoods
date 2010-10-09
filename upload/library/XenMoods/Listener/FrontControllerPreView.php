@@ -41,6 +41,7 @@ class XenMoods_Listener_FrontControllerPreView
 			$moodModel = $this->_getMoodModel();
 			$params = array(
 				'moods' => $this->_getMoodData(),
+				'defaultMoodId' => $moodModel->getDefaultMoodId($this->_getMoodData()),
 				'canViewMoods' => $moodModel->canViewMoods(),
 				'canHaveMood' => $moodModel->canHaveMood()
 			);

@@ -41,7 +41,7 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 					'requiredError' => 'please_enter_valid_url'
 				),
 				'is_default' => array(
-					'type' => self::TYPE_UINT,
+					'type' => self::TYPE_BOOLEAN,
 					'default' => 0
 				)
 			)
@@ -85,7 +85,7 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 			$moods = $this->_getMoodModel()->getAllMoods();
 			if (empty($moods))
 			{
-				$this->set('is_default', 1);
+				$this->set('is_default', true);
 			}
 		}
 	}
@@ -95,12 +95,12 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	 */
 	protected function _postSave()
 	{
-		$this->_rebuildMoodCache();
-
 		if ($this->getNew('is_default'))
 		{
 			$this->_checkDefaultIsLone();
 		}
+
+		$this->_rebuildMoodCache();
 	}
 
 	/**
