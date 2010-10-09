@@ -89,7 +89,7 @@ Moods are currently displayed in six locations which can be turned on or off thr
 Adding, Editing and Deleting Moods
 ----
 
-The manager is located at admin.php?moods/. The link can be found in the left navigation bar when on the Admin Control Panel homepage.
+The manager is located at *admin.php?moods/*. The link can be found in the left navigation bar when on the Admin Control Panel homepage.
 
 The interface should be intuitive enough to work out. Enter image URLs as relative, e.g. *styles/default/xenmoods/happy.png*.
 
