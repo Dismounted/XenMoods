@@ -51,6 +51,8 @@ $queries[] = "
 	)
 ";
 
+
+
 		return $queries;
 	}
 }
