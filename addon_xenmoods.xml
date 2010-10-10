@@ -198,7 +198,7 @@
 
 	<div class="sectionFooter overlayOnly"><a class="button primary OverlayCloser">{xen:phrase cancel}</a></div>
 </div>]]></template>
-    <template title="mood_chooser.css" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[.moodChooser li img
+    <template title="mood_chooser.css" version_id="1" version_string="1.0.0"><![CDATA[.moodChooser li img
 {
 	display: block;
 	margin-left: auto;
@@ -209,6 +209,12 @@
 {
 	background-color: {xen:property primaryLighterStill};
 	text-decoration: none;
+}
+
+.moodChooser ol
+{
+	height: 250px;
+	overflow: auto;
 }]]></template>
     <template title="mood_display" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:if is="{$canViewMoods}">
 	<xen:require css="mood_display.css" />
