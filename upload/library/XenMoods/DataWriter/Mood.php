@@ -167,6 +167,6 @@ class XenMoods_DataWriter_Mood extends XenForo_DataWriter
 	 */
 	protected function _getUserModel()
 	{
-		return $this->getModelFromCache('XenMoods_Model_User');
+		return $this->getModelFromCache('XenForo_Model_User');
 	}
 }
