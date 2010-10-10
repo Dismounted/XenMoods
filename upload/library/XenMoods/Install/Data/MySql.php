@@ -9,11 +9,11 @@ class XenMoods_Install_Data_MySql
 {
 	/**
 	 * The location of default mood images in the system. Include forward slash
-	 * before and after path.
+	 * after path only.
 	 *
 	 * @var string
 	 */
-	protected static $moodImageUrlBase = '/styles/default/xenmoods/';
+	protected static $moodImageUrlBase = 'styles/default/xenmoods/';
 
 	/**
 	 * Fetches the appropriate queries.
@@ -59,19 +59,21 @@ $queries[] = "
 	)
 ";
 
-
-
+		$moodImageSql = self::_getMoodImageSql();
+		if (!empty($moodImageSql))
+		{
 $queries[] = "
 	INSERT INTO xf_mood
 		(title, image_url)
 	VALUES
-" . self::_getMoodImageSql();
+" . $moodImageSql;
 
 $queries[] = "
 	UPDATE xf_mood
 	SET is_default = 1
 	WHERE mood_id = 1
 ";
+		}
 
 		return $queries;
 	}
@@ -89,7 +91,12 @@ $queries[] = "
 
 		foreach ($moodImages AS $name => $path)
 		{
-			$insertSql .= "('{$name}', '{$moodImageUrlBase}{$path}'),\n";
+			$insertSql .= "\n('{$name}', '{$moodImageUrlBase}{$path}'),";
+		}
+
+		if (!empty($insertSql))
+		{
+			$insertSql = substr($insertSql, 0, -1);
 		}
 
 		return $insertSql;
@@ -104,7 +111,7 @@ $queries[] = "
 	{
 		$moodImages = array();
 
-		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(self::_getRootDir() . self::$moodImageUrlBase));
+		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(self::_getRootDir() . '/' . self::$moodImageUrlBase));
 		while ($it->valid())
 		{
 			if (!$it->isDot())
@@ -126,6 +133,6 @@ $queries[] = "
 	 */
 	protected static function _getRootDir()
 	{
-		return XenForo_Application::getRootDir();
+		return XenForo_Application::getInstance()->getRootDir();
 	}
 }
