@@ -1,11 +1,11 @@
 <?php
 /**
- * XenMoods listener for load_class_datawriter code event.
+ * XenMoods listener for load_class_model code event.
  *
  * @package XenMoods
  */
 
-class XenMoods_Listener_LoadClassDataWriter
+class XenMoods_Listener_LoadClassModel
 {
 	/**
 	 * Initialise the code event
