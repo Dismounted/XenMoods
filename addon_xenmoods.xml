@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="xenmoods" title="XenMoods" version_string="1.0.0" version_id="1" url="" install_callback_class="XenMoods_Install" install_callback_method="install" uninstall_callback_class="XenMoods_Uninstall" uninstall_callback_method="uninstall">
+<addon addon_id="xenmoods" title="XenMoods" version_string="1.0.1" version_id="2" url="http://xenforo.com/community/threads/xenmoods.5885/" install_callback_class="XenMoods_Install" install_callback_method="install" uninstall_callback_class="XenMoods_Uninstall" uninstall_callback_method="uninstall">
   <admin_navigation>
     <navigation navigation_id="moods" parent_navigation_id="options" display_order="20" link="moods" admin_permission_id="mood" debug_only="0" hide_no_children="0"/>
   </admin_navigation>
@@ -102,6 +102,7 @@
   <code_event_listeners>
     <listener event_id="front_controller_pre_view" execute_order="10" callback_class="XenMoods_Listener_FrontControllerPreView" callback_method="init" active="1" description="Injects mood data so that it can be accessed in templates."/>
     <listener event_id="init_dependencies" execute_order="10" callback_class="XenMoods_Listener_InitDependencies" callback_method="init" active="1" description="Pre-loads all moods for use."/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="XenMoods_Listener_LoadClassModel" callback_method="init" active="1" description="Extends XenForo models with XenMoods-specific methods."/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
@@ -197,7 +198,7 @@
 
 	<div class="sectionFooter overlayOnly"><a class="button primary OverlayCloser">{xen:phrase cancel}</a></div>
 </div>]]></template>
-    <template title="mood_chooser.css" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[.moodChooser li img
+    <template title="mood_chooser.css" version_id="1" version_string="1.0.0"><![CDATA[.moodChooser li img
 {
 	display: block;
 	margin-left: auto;
@@ -208,6 +209,12 @@
 {
 	background-color: {xen:property primaryLighterStill};
 	text-decoration: none;
+}
+
+.moodChooser ol
+{
+	height: 250px;
+	overflow: auto;
 }]]></template>
     <template title="mood_display" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:if is="{$canViewMoods}">
 	<xen:require css="mood_display.css" />
