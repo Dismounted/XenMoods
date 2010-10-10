@@ -13,7 +13,8 @@ Installation
 5. Click *Install Add-on* to confirm the installation of XenMoods.
 6. Perform the template edits as below.
 
-### Template Edits
+Template Edit
+----
 
 The following template edits must be made to enable XenMoods to work correctly.
 
@@ -99,6 +100,16 @@ User Permissions
 ----
 
 You can set permissions for specific user groups as to whether they can see and have moods. The two permissions are *Can View Moods* and *Can Have Mood*.
+
+Upgrading
+----
+
+1. Upload all the XenMoods files, overwriting any old ones.
+2. Next, go to your Admin Control Panel homepage, and click *List Add-ons* or *Manage Add-ons*.
+3. Activate the *Controls* drop-down for XenMoods, and click *Upgrade*.
+4. Select addon_xenmoods.xml as the file to upload.
+5. Click *Upgrade Add-on* to confirm.
+6. Check your template edits to ensure they are up-to-date.
 
 Uninstallation
 ----

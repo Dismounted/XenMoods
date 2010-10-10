@@ -59,7 +59,19 @@ $queries[] = "
 	)
 ";
 
+		return $queries;
+	}
+
+	/**
+	 * Schema definitions for version 2.
+	 *
+	 * @return array List of queries to run
+	 */
+	protected static function _getQueriesVersion2()
+	{
+		$queries = array();
 		$moodImageSql = self::_getMoodImageSql();
+
 		if (!empty($moodImageSql))
 		{
 $queries[] = "
@@ -67,12 +79,6 @@ $queries[] = "
 		(title, image_url)
 	VALUES
 " . $moodImageSql;
-
-$queries[] = "
-	UPDATE xf_mood
-	SET is_default = 1
-	WHERE mood_id = 1
-";
 		}
 
 		return $queries;

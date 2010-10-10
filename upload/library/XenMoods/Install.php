@@ -110,4 +110,43 @@ class XenMoods_Install
 			$db->query($query);
 		}
 	}
+
+	/**
+	 * Install routine for version ID 2.
+	 *
+	 * @return void
+	 */
+	protected function _installVersion2()
+	{
+		$db = $this->_getDb();
+
+		// fetch existing moods, result is used later
+		$existingMoods = self::_getMoodModel()->getAllMoods();
+
+		$queries = XenMoods_Install_Data_MySql::getQueries(2);
+		foreach ($queries AS $query)
+		{
+			$db->query($query);
+		}
+
+		// fetch new moods
+		$newMoods = self::_getMoodModel()->getAllMoods();
+
+		// if there is are no existing moods, but new, we need to make one default
+		if (empty($existingMoods) AND !empty($newMoods))
+		{
+			$dw = XenForo_DataWriter::create('XenMoods_DataWriter_Mood');
+			$dw->setExistingData(1);
+			$dw->set('is_default', true);
+			$dw->save();
+		}
+	}
+
+	/**
+	 * @return XenMoods_Model_Mood
+	 */
+	protected static function _getMoodModel()
+	{
+		return XenForo_Model::create('XenMoods_Model_Mood');
+	}
 }
