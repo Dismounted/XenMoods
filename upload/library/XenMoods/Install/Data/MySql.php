@@ -8,14 +8,6 @@
 class XenMoods_Install_Data_MySql
 {
 	/**
-	 * The location of default mood images in the system. Include forward slash
-	 * after path only.
-	 *
-	 * @var string
-	 */
-	protected static $moodImageUrlBase = 'styles/default/xenmoods/';
-
-	/**
 	 * Fetches the appropriate queries. This method can take a variable number
 	 * of arguments, which will be passed on to the specific method.
 	 *
@@ -69,12 +61,15 @@ $queries[] = "
 	/**
 	 * Schema definitions for version 2.
 	 *
+	 * @param string Mood images directory
+	 *
 	 * @return array List of queries to run
 	 */
-	protected static function _getQueriesVersion2()
+	protected static function _getQueriesVersion2($moodImageUrlBase)
 	{
 		$queries = array();
-		$moodImageSql = self::_getMoodImageSql();
+		$moodImages = self::_getMoodImages($moodImageUrlBase);
+		$moodImageSql = self::_getMoodImageSql($moodImages, $moodImageUrlBase);
 
 		if (!empty($moodImageSql))
 		{
@@ -91,13 +86,14 @@ $queries[] = "
 	/**
 	 * Creates the SQL insert values for mood images.
 	 *
+	 * @param array List of mood images to generate SQL for
+	 * @param string Mood images directory, not required
+	 *
 	 * @return string List of queries to run
 	 */
-	protected static function _getMoodImageSql()
+	protected static function _getMoodImageSql($moodImages, $moodImageUrlBase = '')
 	{
 		$insertSql = '';
-		$moodImages = self::_getMoodImages();
-		$moodImageUrlBase = self::$moodImageUrlBase;
 
 		foreach ($moodImages AS $name => $path)
 		{
@@ -115,13 +111,15 @@ $queries[] = "
 	/**
 	 * Fetches all the mood images uploaded into the default directory.
 	 *
+	 * @param string Mood images directory
+	 *
 	 * @return array List of mood images uploaded
 	 */
-	protected static function _getMoodImages()
+	protected static function _getMoodImages($moodImageUrlBase)
 	{
 		$moodImages = array();
 
-		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(self::_getRootDir() . '/' . self::$moodImageUrlBase));
+		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(self::_getRootDir() . '/' . $moodImageUrlBase));
 		while ($it->valid())
 		{
 			if (!$it->isDot())
@@ -139,7 +137,7 @@ $queries[] = "
 	/**
 	 * Fetches the XenForo root directory.
 	 *
-	 * @return string Root directory path
+	 * @return string Root path
 	 */
 	protected static function _getRootDir()
 	{

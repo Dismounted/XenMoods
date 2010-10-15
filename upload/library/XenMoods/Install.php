@@ -25,6 +25,14 @@ class XenMoods_Install
 	protected $_db;
 
 	/**
+	 * The location of default mood images in the system. Include forward slash
+	 * after path only.
+	 *
+	 * @var string
+	 */
+	protected $moodImageUrlBase = 'styles/default/xenmoods/';
+
+	/**
 	 * Gets the installer instance.
 	 *
 	 * @return XenMoods_Install
@@ -123,7 +131,7 @@ class XenMoods_Install
 		// fetch existing moods, result is used later
 		$existingMoods = $this->_getMoodModel()->getAllMoods();
 
-		$queries = XenMoods_Install_Data_MySql::getQueries(2);
+		$queries = XenMoods_Install_Data_MySql::getQueries(2, $this->_getMoodImageUrlBase());
 		foreach ($queries AS $query)
 		{
 			$db->query($query);
@@ -149,7 +157,7 @@ class XenMoods_Install
 	 */
 	protected function _installVersion3()
 	{
-		$moodNoMoodPath = XenMoods_Install_Data_MySql::$moodImageUrlBase . 'No Mood.png';
+		$moodNoMoodPath = $this->_getMoodImageUrlBase() . 'No Mood.png';
 		$moodNoMoodData = $this->_getMoodModel()->getMoodByUrl($moodNoMoodPath);
 		if (empty($moodNoMoodData))
 		{
@@ -198,5 +206,15 @@ class XenMoods_Install
 	protected function _getRootDir()
 	{
 		return XenForo_Application::getInstance()->getRootDir();
+	}
+
+	/**
+	 * Fetches the mood images root directory.
+	 *
+	 * @return string Mood images directory
+	 */
+	protected function _getMoodImageUrlBase()
+	{
+		return $this->moodImageUrlBase;
 	}
 }
