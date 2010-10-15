@@ -22,7 +22,7 @@ class XenMoods_Install_Data_MySql
 	 * @param integer Version ID of queries to fetch
 	 *
 	 * @return array List of queries to run
-	 * @return void Nothing if called method doesn't exist
+	 * @return array Empty array if method does not exist
 	 */
 	public static function getQueries($version)
 	{
