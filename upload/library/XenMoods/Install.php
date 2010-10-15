@@ -25,6 +25,14 @@ class XenMoods_Install
 	protected $_db;
 
 	/**
+	 * The location of default mood images in the system. Include forward slash
+	 * after path only.
+	 *
+	 * @var string
+	 */
+	protected $moodImageUrlBase = 'styles/default/xenmoods/';
+
+	/**
 	 * Gets the installer instance.
 	 *
 	 * @return XenMoods_Install
@@ -121,18 +129,18 @@ class XenMoods_Install
 		$db = $this->_getDb();
 
 		// fetch existing moods, result is used later
-		$existingMoods = self::_getMoodModel()->getAllMoods();
+		$existingMoods = $this->_getMoodModel()->getAllMoods();
 
-		$queries = XenMoods_Install_Data_MySql::getQueries(2);
+		$queries = XenMoods_Install_Data_MySql::getQueries(2, $this->_getMoodImageUrlBase());
 		foreach ($queries AS $query)
 		{
 			$db->query($query);
 		}
 
 		// fetch new moods
-		$newMoods = self::_getMoodModel()->getAllMoods();
+		$newMoods = $this->_getMoodModel()->getAllMoods();
 
-		// if there is are no existing moods, but new, we need to make one default
+		// if there are no existing moods, but new, we need to make one default
 		if (empty($existingMoods) AND !empty($newMoods))
 		{
 			$dw = XenForo_DataWriter::create('XenMoods_DataWriter_Mood');
@@ -143,10 +151,70 @@ class XenMoods_Install
 	}
 
 	/**
+	 * Install routine for version ID 3.
+	 *
+	 * @return void
+	 */
+	protected function _installVersion3()
+	{
+		$moodNoMoodPath = $this->_getMoodImageUrlBase() . 'No Mood.png';
+		$moodNoMoodData = $this->_getMoodModel()->getMoodByUrl($moodNoMoodPath);
+		if (empty($moodNoMoodData))
+		{
+			// this mood was added in this version, if it has been uploaded, add it
+			if (file_exists($this->_getRootDir() . '/' . $moodNoMoodPath))
+			{
+				$dw = $this->_getMoodDataWriter();
+				$dw->set('title', 'No Mood');
+				$dw->set('image_url', $moodNoMoodPath);
+				$dw->set('is_default', true);
+				$dw->save();
+			}
+		}
+		else
+		{
+			// it is already there, probably added by version ID 2 install
+			// make it default
+			$dw = $this->_getMoodDataWriter();
+			$dw->setExistingData($moodNoMoodData['mood_id']);
+			$dw->set('is_default', true);
+			$dw->save();
+		}
+	}
+
+	/**
 	 * @return XenMoods_Model_Mood
 	 */
-	protected static function _getMoodModel()
+	protected function _getMoodModel()
 	{
 		return XenForo_Model::create('XenMoods_Model_Mood');
+	}
+
+	/**
+	 * @return XenMoods_DataWriter_Mood
+	 */
+	protected function _getMoodDataWriter()
+	{
+		return XenForo_DataWriter::create('XenMoods_DataWriter_Mood');
+	}
+
+	/**
+	 * Fetches the XenForo root directory.
+	 *
+	 * @return array Root directory path
+	 */
+	protected function _getRootDir()
+	{
+		return XenForo_Application::getInstance()->getRootDir();
+	}
+
+	/**
+	 * Fetches the mood images root directory.
+	 *
+	 * @return string Mood images directory
+	 */
+	protected function _getMoodImageUrlBase()
+	{
+		return $this->moodImageUrlBase;
 	}
 }

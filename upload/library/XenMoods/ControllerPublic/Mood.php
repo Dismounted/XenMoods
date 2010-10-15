@@ -8,6 +8,14 @@
 class XenMoods_ControllerPublic_Mood extends XenForo_ControllerPublic_Abstract
 {
 	/**
+	 * Pre-dispatch assurances.
+	 */
+	protected function _preDispatch($action)
+	{
+		$this->_assertRegistrationRequired();
+	}
+
+	/**
 	 * Displays a form to change the visitor's mood, or changes it if a mood_id is present.
 	 *
 	 * @return XenForo_ControllerResponse_Abstract
@@ -16,7 +24,7 @@ class XenMoods_ControllerPublic_Mood extends XenForo_ControllerPublic_Abstract
 	{
 		$visitor = XenForo_Visitor::getInstance();
 
-		if (!$visitor['user_id'] OR !$this->_getMoodModel()->canHaveMood($visitor->toArray()))
+		if (!$this->_getMoodModel()->canHaveMood($visitor->toArray()))
 		{
 			return $this->responseNoPermission();
 		}
