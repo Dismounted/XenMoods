@@ -24,6 +24,22 @@ class XenMoods_Model_Mood extends XenForo_Model
 	}
 
 	/**
+	 * Gets the named mood by image URL.
+	 *
+	 * @param string $moodImageUrl
+	 *
+	 * @return array|false
+	 */
+	public function getMoodByUrl($moodImageUrl)
+	{
+		return $this->_getDb()->fetchRow('
+			SELECT *
+			FROM xf_mood
+			WHERE image_url = ?
+		', $moodImageUrl);
+	}
+
+	/**
 	 * Gets all moods ordered by their title.
 	 *
 	 * @return array Format: [mood id] => info
