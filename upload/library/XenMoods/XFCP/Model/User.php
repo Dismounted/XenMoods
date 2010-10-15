@@ -2,7 +2,7 @@
 /**
  * Extends the default model to provide mood methods.
  *
- * @package XenForo_Users
+ * @package XenMoods
  */
 
 class XenMoods_XFCP_Model_User extends XFCP_XenMoods_XFCP_Model_User
