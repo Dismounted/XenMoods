@@ -13,7 +13,7 @@ Installation
 5. Click *Install Add-on* to confirm the installation of XenMoods.
 6. Perform the template edits as below.
 
-Template Edit
+Template Edits
 ----
 
 The following template edits must be made to enable XenMoods to work correctly.
