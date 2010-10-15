@@ -139,7 +139,7 @@ $queries[] = "
 	/**
 	 * Fetches the XenForo root directory.
 	 *
-	 * @return array List of mood images uploaded
+	 * @return string Root directory path
 	 */
 	protected static function _getRootDir()
 	{
