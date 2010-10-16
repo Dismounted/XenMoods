@@ -131,7 +131,7 @@ class XenMoods_Install
 		// fetch existing moods, result is used later
 		$existingMoods = $this->_getMoodModel()->getAllMoods();
 
-		$queries = XenMoods_Install_Data_MySql::getQueries(2, $this->_getMoodImageUrlBase());
+		$queries = XenMoods_Install_Data_MySql::getQueries(2, $this->_getMoodImages(), $this->_getMoodImageUrlBase());
 		foreach ($queries AS $query)
 		{
 			$db->query($query);
@@ -140,7 +140,7 @@ class XenMoods_Install
 		// fetch new moods
 		$newMoods = $this->_getMoodModel()->getAllMoods();
 
-		// if there are no existing moods, but new, we need to make one default
+		// if there were no existing moods, but are new ones, we need to make one default
 		if (empty($existingMoods) AND !empty($newMoods))
 		{
 			$dw = XenForo_DataWriter::create('XenMoods_DataWriter_Mood');
@@ -180,6 +180,30 @@ class XenMoods_Install
 			$dw->set('is_default', true);
 			$dw->save();
 		}
+	}
+
+	/**
+	 * Fetches all the mood images uploaded into the default directory.
+	 *
+	 * @return array List of mood images uploaded
+	 */
+	protected function _getMoodImages()
+	{
+		$moodImages = array();
+
+		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(self::_getRootDir() . '/' . $this->_getMoodImageUrlBase()));
+		while ($it->valid())
+		{
+			if (!$it->isDot())
+			{
+				$moodName = pathinfo($it->key(), PATHINFO_FILENAME);
+				$moodImages[$moodName] = $it->getSubPathName();
+			}
+
+			$it->next();
+		}
+
+		return $moodImages;
 	}
 
 	/**
