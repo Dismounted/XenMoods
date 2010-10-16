@@ -69,9 +69,17 @@ Add Below:
 - Template: member_view
 
 Find:
-	<h1 itemprop="name">{xen:helper richUserName, $user}</h1>
+	<xen:if is="{$visitor.user_id} AND {$user.user_id} != {$visitor.user_id}">
+		<div class="muted">
+			<xen:if is="{$user.isFollowingVisitor}">
+				{xen:phrase user_is_following_you, 'user={$user.username}'}
+			<xen:else />
+				{xen:phrase user_is_not_following_you, 'user={$user.username}'}
+			</xen:if>
+		</div>
+	</xen:if>
 
-Add Above:
+Add Below:
 	<xen:if is="@profileShowMood">
 		<xen:include template="mood_display" />
 	</xen:if>

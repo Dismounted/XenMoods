@@ -231,14 +231,19 @@
 		</xen:if>
 	</div>
 </xen:if>]]></template>
-    <template title="mood_display.css" version_id="2" version_string="1.0.1"><![CDATA[.userMood
+    <template title="mood_display.css" version_id="3" version_string="1.0.2"><![CDATA[.userMood
 {
 	padding-top: 10px;
 }
 
-.userInfo .userMood, .profilePage .userMood
+.userInfo .userMood
 {
 	float: right;
+}
+
+.profilePage .userMood
+{
+	padding-top: 4px;
 }
 
 .avatarHolder .userMood img
