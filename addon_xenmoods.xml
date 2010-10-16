@@ -175,7 +175,7 @@
     <property property_name="memberCardShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Member Card" description="Displays a user's mood on their member card pop-up." css_components="" scalar_type="boolean" scalar_parameters="" display_order="130" sub_group="XenMoods"><![CDATA[1]]></property>
   </style_properties>
   <templates>
-    <template title="mood_chooser" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>
+    <template title="mood_chooser" version_id="3" version_string="1.0.2"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>
 
 <xen:require css="chooser_overlay.css" />
 <xen:require css="mood_chooser.css" />
@@ -184,7 +184,7 @@
 
 	<h3 class="subHeading">{xen:phrase select_mood_you_are_currently_in}</h3>
 
-	<ol class="primaryContent chooserColumns threeColumns">
+	<ol class="primaryContent chooserColumns fourColumns">
 
 		<xen:foreach loop="$moods" key="$moodId" value="$mood">
 			<li{xen:if "{$selected} == '{$mood.mood_id}'", ' class="currentMood"'}>
@@ -198,7 +198,7 @@
 
 	<div class="sectionFooter overlayOnly"><a class="button primary OverlayCloser">{xen:phrase cancel}</a></div>
 </div>]]></template>
-    <template title="mood_chooser.css" version_id="1" version_string="1.0.0"><![CDATA[.moodChooser li img
+    <template title="mood_chooser.css" version_id="3" version_string="1.0.2"><![CDATA[.moodChooser li img
 {
 	display: block;
 	margin-left: auto;
