@@ -30,7 +30,7 @@ class XenMoods_Install
 	 *
 	 * @var string
 	 */
-	protected $moodImageUrlBase = 'styles/default/xenmoods/';
+	protected $moodImageDir = 'styles/default/xenmoods/';
 
 	/**
 	 * Gets the installer instance.
@@ -131,7 +131,7 @@ class XenMoods_Install
 		// fetch existing moods, result is used later
 		$existingMoods = $this->_getMoodModel()->getAllMoods();
 
-		$queries = XenMoods_Install_Data_MySql::getQueries(2, $this->_getMoodImages(), $this->_getMoodImageUrlBase());
+		$queries = XenMoods_Install_Data_MySql::getQueries(2, $this->_getMoodImages(), $this->_getMoodImageDir());
 		foreach ($queries AS $query)
 		{
 			$db->query($query);
@@ -157,7 +157,7 @@ class XenMoods_Install
 	 */
 	protected function _installVersion3()
 	{
-		$moodNoMoodPath = $this->_getMoodImageUrlBase() . 'No Mood.png';
+		$moodNoMoodPath = $this->_getMoodImageDir() . 'No Mood.png';
 		$moodNoMoodData = $this->_getMoodModel()->getMoodByUrl($moodNoMoodPath);
 		if (empty($moodNoMoodData))
 		{
@@ -191,7 +191,7 @@ class XenMoods_Install
 	{
 		$moodImages = array();
 
-		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(self::_getRootDir() . '/' . $this->_getMoodImageUrlBase()));
+		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_getRootDir() . '/' . $this->_getMoodImageDir()));
 		while ($it->valid())
 		{
 			if (!$it->isDot())
@@ -237,8 +237,8 @@ class XenMoods_Install
 	 *
 	 * @return string Mood images directory
 	 */
-	protected function _getMoodImageUrlBase()
+	protected function _getMoodImageDir()
 	{
-		return $this->moodImageUrlBase;
+		return $this->moodImageDir;
 	}
 }

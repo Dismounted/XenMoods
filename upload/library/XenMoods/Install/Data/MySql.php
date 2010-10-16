@@ -25,7 +25,7 @@ class XenMoods_Install_Data_MySql
 		}
 
 		$args = func_get_args();
-		$args = array_shift($args);
+		$args = array_slice($args, 1);
 
 		return call_user_func_array(array(__CLASS__, $method), $args);
 	}
@@ -62,18 +62,18 @@ $queries[] = "
 	 * Schema definitions for version 2.
 	 *
 	 * @param string Mood images processed from XenMoods_Install::_getMoodImages()
-	 * @param string
+	 * @param string Location of mood images to add into the system
 	 *
 	 * @return array List of queries to run
 	 */
-	protected static function _getQueriesVersion2($moodImages, $moodImageUrlBase)
+	protected static function _getQueriesVersion2($moodImages, $moodImageDir)
 	{
 		$queries = array();
 		$insertSql = '';
 
 		foreach ($moodImages AS $name => $path)
 		{
-			$insertSql .= "\n('{$name}', '{$moodImageUrlBase}{$path}'),";
+			$insertSql .= "\n('{$name}', '{$moodImageDir}{$path}'),";
 		}
 
 		if (!empty($insertSql))
