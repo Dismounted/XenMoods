@@ -184,7 +184,7 @@
 
 	<h3 class="subHeading">{xen:phrase select_mood_you_are_currently_in}</h3>
 
-	<ol class="primaryContent chooserColumns fourColumns">
+	<ol class="primaryContent chooserColumns threeColumns">
 
 		<xen:foreach loop="$moods" key="$moodId" value="$mood">
 			<li{xen:if "{$selected} == '{$mood.mood_id}'", ' class="currentMood"'}>
