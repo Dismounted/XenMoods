@@ -60,11 +60,7 @@ class XenMoods_Model_Mood extends XenForo_Model
 	 */
 	public function getAllMoodsForCache()
 	{
-		return $this->fetchAllKeyed('
-			SELECT mood_id, title, image_url, is_default
-			FROM xf_mood
-			ORDER BY mood_id
-		', 'mood_id');
+		return $this->getAllMoods();
 	}
 
 	/**
