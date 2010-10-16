@@ -1,6 +1,12 @@
 Change Log
 ----
 
+Version 1.0.3 (16 Oct 2010)
+- Alphabetically sorted mood chooser.
+- User profile mood positioning fix (redo *member_view* template edit).
+- Fix mood chooser for differing mood image heights.
+- Some code improvements.
+
 Version 1.0.2 (15 Oct 2010)
 - Centering of mood images in avatar holder.
 - Add "No Mood" image (as default).
