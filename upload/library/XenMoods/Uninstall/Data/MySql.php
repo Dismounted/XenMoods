@@ -8,7 +8,8 @@
 class XenMoods_Uninstall_Data_MySql
 {
 	/**
-	 * Fetches the appropriate queries.
+	 * Fetches the appropriate queries. This method can take a variable number
+	 * of arguments, which will be passed on to the specific method.
 	 *
 	 * @param integer Version ID of queries to fetch
 	 *
@@ -23,7 +24,10 @@ class XenMoods_Uninstall_Data_MySql
 			return array();
 		}
 
-		return self::$method();
+		$args = func_get_args();
+		$args = array_shift($args);
+
+		return call_user_func_array(array(__CLASS__, $method), $args);
 	}
 
 	/**

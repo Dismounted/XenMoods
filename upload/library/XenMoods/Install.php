@@ -30,7 +30,7 @@ class XenMoods_Install
 	 *
 	 * @var string
 	 */
-	protected $moodImageUrlBase = 'styles/default/xenmoods/';
+	protected $moodImageDir = 'styles/default/xenmoods/';
 
 	/**
 	 * Gets the installer instance.
@@ -131,7 +131,7 @@ class XenMoods_Install
 		// fetch existing moods, result is used later
 		$existingMoods = $this->_getMoodModel()->getAllMoods();
 
-		$queries = XenMoods_Install_Data_MySql::getQueries(2, $this->_getMoodImageUrlBase());
+		$queries = XenMoods_Install_Data_MySql::getQueries(2, $this->_getMoodImages(), $this->_getMoodImageDir());
 		foreach ($queries AS $query)
 		{
 			$db->query($query);
@@ -140,7 +140,7 @@ class XenMoods_Install
 		// fetch new moods
 		$newMoods = $this->_getMoodModel()->getAllMoods();
 
-		// if there are no existing moods, but new, we need to make one default
+		// if there were no existing moods, but are new ones, we need to make one default
 		if (empty($existingMoods) AND !empty($newMoods))
 		{
 			$dw = XenForo_DataWriter::create('XenMoods_DataWriter_Mood');
@@ -157,7 +157,7 @@ class XenMoods_Install
 	 */
 	protected function _installVersion3()
 	{
-		$moodNoMoodPath = $this->_getMoodImageUrlBase() . 'No Mood.png';
+		$moodNoMoodPath = $this->_getMoodImageDir() . 'No Mood.png';
 		$moodNoMoodData = $this->_getMoodModel()->getMoodByUrl($moodNoMoodPath);
 		if (empty($moodNoMoodData))
 		{
@@ -180,6 +180,30 @@ class XenMoods_Install
 			$dw->set('is_default', true);
 			$dw->save();
 		}
+	}
+
+	/**
+	 * Fetches all the mood images uploaded into the default directory.
+	 *
+	 * @return array List of mood images uploaded
+	 */
+	protected function _getMoodImages()
+	{
+		$moodImages = array();
+
+		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_getRootDir() . '/' . $this->_getMoodImageDir()));
+		while ($it->valid())
+		{
+			if (!$it->isDot())
+			{
+				$moodName = pathinfo($it->key(), PATHINFO_FILENAME);
+				$moodImages[$moodName] = $it->getSubPathName();
+			}
+
+			$it->next();
+		}
+
+		return $moodImages;
 	}
 
 	/**
@@ -213,8 +237,8 @@ class XenMoods_Install
 	 *
 	 * @return string Mood images directory
 	 */
-	protected function _getMoodImageUrlBase()
+	protected function _getMoodImageDir()
 	{
-		return $this->moodImageUrlBase;
+		return $this->moodImageDir;
 	}
 }
