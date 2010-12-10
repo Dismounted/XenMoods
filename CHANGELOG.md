@@ -1,6 +1,14 @@
 Change Log
 ----
 
+Version 1.0.4 (10 Dec 2010)
+- XenForo 1.0.0 Beta 4 compatibility.
+- Consolidate style properties.
+- "Add New Mood" button added at bottom of moods list.
+- Move thread view edits into template hooks.
+- Updated other template edits.
+- Various code improvements.
+
 Version 1.0.3 (16 Oct 2010)
 - Alphabetically sorted mood chooser.
 - User profile mood positioning fix (redo *member_view* template edit).
