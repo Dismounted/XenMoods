@@ -44,7 +44,7 @@ class XenMoods_ControllerPublic_Mood extends XenForo_ControllerPublic_Abstract
 				}
 			}
 
-			$dw = XenForo_DataWriter::create('XenMoods_DataWriter_User');
+			$dw = XenForo_DataWriter::create('XenForo_DataWriter_User');
 			$dw->setExistingData($visitor['user_id']);
 			$dw->set('mood_id', $moodId);
 			$dw->save();

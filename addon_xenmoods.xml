@@ -117,6 +117,7 @@
     <listener event_id="init_dependencies" execute_order="10" callback_class="XenMoods_Listener_InitDependencies" callback_method="init" active="1" description="Pre-loads all moods for use."/>
     <listener event_id="load_class_model" execute_order="10" callback_class="XenMoods_Listener_LoadClassModel" callback_method="init" active="1" description="Extends XenForo models with XenMoods-specific methods."/>
     <listener event_id="template_hook" execute_order="10" callback_class="XenMoods_Listener_TemplateHook" callback_method="init" active="1" description="Modifies the output of templates."/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="XenMoods_Listener_LoadClassDataWriter" callback_method="init" active="1" description="Extends XenForo data writers with XenMoods-specific methods."/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
