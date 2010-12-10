@@ -146,15 +146,17 @@
     <phrase title="save_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Save Mood]]></phrase>
     <phrase title="select_mood_you_are_currently_in" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Select the mood you are currently in]]></phrase>
     <phrase title="style_property_editorShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Display a user's mood under his/her avatar next to the quick reply editor.]]></phrase>
-    <phrase title="style_property_editorShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on QR Editor]]></phrase>
-    <phrase title="style_property_memberCardShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood on their member card pop-up.]]></phrase>
+    <phrase title="style_property_editorShowMood_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Show User Mood on Quick Reply]]></phrase>
+    <phrase title="style_property_group_moods_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Moods]]></phrase>
+    <phrase title="style_property_group_moods_master_desc" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Controls the display of moods in XenForo.]]></phrase>
+    <phrase title="style_property_memberCardShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood on his/her member card pop-up.]]></phrase>
     <phrase title="style_property_memberCardShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Member Card]]></phrase>
     <phrase title="style_property_messageShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Display the mood of the message author.]]></phrase>
     <phrase title="style_property_messageShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show Author Mood]]></phrase>
-    <phrase title="style_property_profileShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood on their profile.]]></phrase>
+    <phrase title="style_property_profileShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood on his/her profile.]]></phrase>
     <phrase title="style_property_profileShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Profile]]></phrase>
-    <phrase title="style_property_sidebarShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood in the sidebar block under "Signed in as" on the forum index.]]></phrase>
-    <phrase title="style_property_sidebarShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Sidebar]]></phrase>
+    <phrase title="style_property_sidebarShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood in the sidebar block under his/her other information.]]></phrase>
+    <phrase title="style_property_sidebarShowMood_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Show User Mood on Sidebar]]></phrase>
   </phrases>
   <route_prefixes>
     <route_type type="admin">
@@ -165,11 +167,15 @@
     </route_type>
   </route_prefixes>
   <style_properties>
-    <property property_name="messageShowMood" property_type="scalar" definition="1" group_name="messageUserInfo" title="Show Author Mood" description="Display the mood of the message author." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="User Info"><![CDATA[1]]></property>
-    <property property_name="sidebarShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Sidebar" description="Displays a user's mood in the sidebar block under &quot;Signed in as&quot; on the forum index." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="XenMoods"><![CDATA[1]]></property>
-    <property property_name="editorShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on QR Editor" description="Display a user's mood under his/her avatar next to the quick reply editor." css_components="" scalar_type="boolean" scalar_parameters="" display_order="110" sub_group="XenMoods"><![CDATA[1]]></property>
-    <property property_name="profileShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Profile" description="Displays a user's mood on their profile." css_components="" scalar_type="boolean" scalar_parameters="" display_order="120" sub_group="XenMoods"><![CDATA[1]]></property>
-    <property property_name="memberCardShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Member Card" description="Displays a user's mood on their member card pop-up." css_components="" scalar_type="boolean" scalar_parameters="" display_order="130" sub_group="XenMoods"><![CDATA[1]]></property>
+    <property property_name="sidebarShowMood" property_type="scalar" definition="1" group_name="moods" title="Show User Mood on Sidebar" description="Displays a user's mood in the sidebar block under his/her other information." css_components="" scalar_type="boolean" scalar_parameters="" display_order="10" sub_group="Display"><![CDATA[1]]></property>
+    <property property_name="editorShowMood" property_type="scalar" definition="1" group_name="moods" title="Show User Mood on Quick Reply" description="Display a user's mood under his/her avatar next to the quick reply editor." css_components="" scalar_type="boolean" scalar_parameters="" display_order="20" sub_group="Display"><![CDATA[1]]></property>
+    <property property_name="memberCardShowMood" property_type="scalar" definition="1" group_name="moods" title="Show User Mood on Member Card" description="Displays a user's mood on his/her member card pop-up." css_components="" scalar_type="boolean" scalar_parameters="" display_order="30" sub_group="Display"><![CDATA[1]]></property>
+    <property property_name="profileShowMood" property_type="scalar" definition="1" group_name="moods" title="Show User Mood on Profile" description="Displays a user's mood on his/her profile." css_components="" scalar_type="boolean" scalar_parameters="" display_order="40" sub_group="Display"><![CDATA[1]]></property>
+    <property property_name="messageShowMood" property_type="scalar" definition="1" group_name="message" title="Show Author Mood" description="Display the mood of the message author." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="User Info"><![CDATA[1]]></property>
+    <group group_name="moods" display_order="1500">
+      <title>Moods</title>
+      <description>Controls the display of moods in XenForo.</description>
+    </group>
   </style_properties>
   <templates>
     <template title="mood_chooser" version_id="3" version_string="1.0.2"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>

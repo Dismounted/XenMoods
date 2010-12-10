@@ -76,12 +76,11 @@ Display Locations
 ----
 
 Moods are currently displayed in six locations which can be turned on or off through Style Properties (property location in parenthesis):
-- Sidebar Visitor Panel (Options, Show User Mood on Sidebar)
-- Navigation Visitor Tab (Header and Navigation, Show User Mood)
-- Message User Info on Posts (Message User Info, Show Author Mood)
-- Under Avatar on Quick Reply (Options, Show User Mood on QR Editor)
-- Member Card (Options, Show User Mood on Member Card)
-- Member Profile (Options, Show User Mood on Profile)
+- Message User Info on Posts (Message Elements, Show Author Mood)
+- Sidebar Visitor Panel (XenMoods, Show User Mood on Sidebar)
+- Under Avatar on Quick Reply (XenMoods, Show User Mood on Quick Reply)
+- Member Card (XenMoods, Show User Mood on Member Card)
+- Member Profile (XenMoods, Show User Mood on Profile)
 
 Adding, Editing and Deleting Moods
 ----
