@@ -122,7 +122,7 @@
   <phrases>
     <phrase title="add_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Add New Mood]]></phrase>
     <phrase title="admin_navigation_moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
-    <phrase title="admin_permission_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Manage Moods]]></phrase>
+    <phrase title="admin_permission_mood" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Manage moods]]></phrase>
     <phrase title="all_users_will_move_to_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[All users using this mood will automatically switch to the default mood.]]></phrase>
     <phrase title="cannot_delete_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[A default mood cannot be deleted. Please assign another mood to be the default before deleting this one.]]></phrase>
     <phrase title="confirm_deletion_of_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Deletion of Mood]]></phrase>
@@ -137,8 +137,8 @@
     <phrase title="no_moods_have_been_added_yet" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[No moods have been added yet.]]></phrase>
     <phrase title="permission_group_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
     <phrase title="permission_interface_moodPermissions" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
-    <phrase title="permission_mood_have" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Have Mood]]></phrase>
-    <phrase title="permission_mood_view" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can View Moods]]></phrase>
+    <phrase title="permission_mood_have" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Have moods]]></phrase>
+    <phrase title="permission_mood_view" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[View moods]]></phrase>
     <phrase title="please_confirm_that_you_want_to_delete_following_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to delete the following mood]]></phrase>
     <phrase title="please_confirm_that_you_want_to_mark_following_mood_default" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to mark the following mood as default]]></phrase>
     <phrase title="please_select_valid_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please select a valid mood.]]></phrase>

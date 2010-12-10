@@ -102,12 +102,12 @@ The manager is located at *admin.php?moods/*. The link can be found in the left 
 
 The interface should be intuitive enough to work out. Enter image URLs as relative, e.g. *styles/default/xenmoods/happy.png*.
 
-NB. You must have the Admin Permission *Can Manage Moods* ticked.
+NB. You must have the Admin Permission *Manage moods* ticked.
 
 User Permissions
 ----
 
-You can set permissions for specific user groups as to whether they can see and have moods. The two permissions are *Can View Moods* and *Can Have Mood*.
+You can set permissions for specific user groups as to whether they can see and have moods. The two permissions are *View moods* and *Have moods*.
 
 Upgrading
 ----
