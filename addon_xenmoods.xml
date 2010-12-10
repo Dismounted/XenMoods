@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="xenmoods" title="XenMoods" version_string="1.0.3" version_id="4" url="http://xenforo.com/community/threads/xenmoods.5885/" install_callback_class="XenMoods_Install" install_callback_method="install" uninstall_callback_class="XenMoods_Uninstall" uninstall_callback_method="uninstall">
+<addon addon_id="xenmoods" title="XenMoods" version_string="1.0.4" version_id="5" url="http://xenforo.com/community/threads/xenmoods.5885/" install_callback_class="XenMoods_Install" install_callback_method="install" uninstall_callback_class="XenMoods_Uninstall" uninstall_callback_method="uninstall">
   <admin_navigation>
     <navigation navigation_id="moods" parent_navigation_id="options" display_order="20" link="moods" admin_permission_id="mood" debug_only="0" hide_no_children="0"/>
   </admin_navigation>
@@ -50,6 +50,8 @@
 <xen:require css="filter_list.css" />
 <xen:require js="js/xenforo/filter_list.js" />
 
+<xen:require css="mood_list.css" />
+
 <xen:form action="{xen:adminlink moods}" class="section">
 	<xen:if is="{$moods}">
 		<h2 class="subHeading">
@@ -79,7 +81,18 @@
 	<xen:else />
 		<div class="noResults">{xen:phrase no_moods_have_been_added_yet}</div>
 	</xen:if>
-</xen:form>]]></template>
+</xen:form>
+
+<div class="moodBottomCtrl"><a href="{xen:adminlink moods/add}" class="button">+ {xen:phrase add_new_mood}</a></div>]]></template>
+    <template title="mood_list.css"><![CDATA[.moodBottomCtrl
+{
+	padding-bottom: 15px;
+}
+
+.moodBottomCtrl a
+{
+	float: right;
+}]]></template>
     <template title="mood_make_default"><![CDATA[<xen:title>{xen:phrase confirm_selection_default_mood}: {$mood.title}</xen:title>
 <xen:h1>{xen:phrase confirm_selection_default_mood}</xen:h1>
 
@@ -103,6 +116,8 @@
     <listener event_id="front_controller_pre_view" execute_order="10" callback_class="XenMoods_Listener_FrontControllerPreView" callback_method="init" active="1" description="Injects mood data so that it can be accessed in templates."/>
     <listener event_id="init_dependencies" execute_order="10" callback_class="XenMoods_Listener_InitDependencies" callback_method="init" active="1" description="Pre-loads all moods for use."/>
     <listener event_id="load_class_model" execute_order="10" callback_class="XenMoods_Listener_LoadClassModel" callback_method="init" active="1" description="Extends XenForo models with XenMoods-specific methods."/>
+    <listener event_id="template_hook" execute_order="10" callback_class="XenMoods_Listener_TemplateHook" callback_method="init" active="1" description="Modifies the output of templates."/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="XenMoods_Listener_LoadClassDataWriter" callback_method="init" active="1" description="Extends XenForo data writers with XenMoods-specific methods."/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
@@ -122,7 +137,7 @@
   <phrases>
     <phrase title="add_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Add New Mood]]></phrase>
     <phrase title="admin_navigation_moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
-    <phrase title="admin_permission_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Manage Moods]]></phrase>
+    <phrase title="admin_permission_mood" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Manage moods]]></phrase>
     <phrase title="all_users_will_move_to_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[All users using this mood will automatically switch to the default mood.]]></phrase>
     <phrase title="cannot_delete_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[A default mood cannot be deleted. Please assign another mood to be the default before deleting this one.]]></phrase>
     <phrase title="confirm_deletion_of_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Deletion of Mood]]></phrase>
@@ -137,26 +152,24 @@
     <phrase title="no_moods_have_been_added_yet" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[No moods have been added yet.]]></phrase>
     <phrase title="permission_group_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
     <phrase title="permission_interface_moodPermissions" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
-    <phrase title="permission_mood_have" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can Have Mood]]></phrase>
-    <phrase title="permission_mood_view" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Can View Moods]]></phrase>
+    <phrase title="permission_mood_have" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Have moods]]></phrase>
+    <phrase title="permission_mood_view" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[View moods]]></phrase>
     <phrase title="please_confirm_that_you_want_to_delete_following_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to delete the following mood]]></phrase>
     <phrase title="please_confirm_that_you_want_to_mark_following_mood_default" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to mark the following mood as default]]></phrase>
     <phrase title="please_select_valid_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please select a valid mood.]]></phrase>
     <phrase title="requested_mood_not_found" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[The requested mood could not be found.]]></phrase>
     <phrase title="save_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Save Mood]]></phrase>
     <phrase title="select_mood_you_are_currently_in" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Select the mood you are currently in]]></phrase>
-    <phrase title="style_property_editorShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Display a user's mood under his/her avatar next to the quick reply editor.]]></phrase>
-    <phrase title="style_property_editorShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on QR Editor]]></phrase>
-    <phrase title="style_property_headerShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood in the user drop-down menu.]]></phrase>
-    <phrase title="style_property_headerShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood]]></phrase>
-    <phrase title="style_property_memberCardShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood on their member card pop-up.]]></phrase>
+    <phrase title="style_property_group_moods_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Moods]]></phrase>
+    <phrase title="style_property_group_moods_master_desc" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Controls the display of moods in XenForo.]]></phrase>
+    <phrase title="style_property_memberCardShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood on his/her member card pop-up.]]></phrase>
     <phrase title="style_property_memberCardShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Member Card]]></phrase>
-    <phrase title="style_property_messageShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Display the mood of the message author.]]></phrase>
-    <phrase title="style_property_messageShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show Author Mood]]></phrase>
-    <phrase title="style_property_profileShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood on their profile.]]></phrase>
+    <phrase title="style_property_profileShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood on his/her profile.]]></phrase>
     <phrase title="style_property_profileShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Profile]]></phrase>
-    <phrase title="style_property_sidebarShowMood_description_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Displays a user's mood in the sidebar block under "Signed in as" on the forum index.]]></phrase>
-    <phrase title="style_property_sidebarShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Sidebar]]></phrase>
+    <phrase title="style_property_sidebarShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood in the sidebar block under his/her other information.]]></phrase>
+    <phrase title="style_property_sidebarShowMood_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Show User Mood on Sidebar]]></phrase>
+    <phrase title="style_property_threadShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Display a user's mood under his/her avatar inside threads (includes quick reply avatar).]]></phrase>
+    <phrase title="style_property_threadShowMood_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Show User Mood on Thread View]]></phrase>
   </phrases>
   <route_prefixes>
     <route_type type="admin">
@@ -167,12 +180,14 @@
     </route_type>
   </route_prefixes>
   <style_properties>
-    <property property_name="messageShowMood" property_type="scalar" definition="1" group_name="messageUserInfo" title="Show Author Mood" description="Display the mood of the message author." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="User Info"><![CDATA[1]]></property>
-    <property property_name="headerShowMood" property_type="scalar" definition="1" group_name="header" title="Show User Mood" description="Displays a user's mood in the user drop-down menu." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="XenMoods"><![CDATA[1]]></property>
-    <property property_name="sidebarShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Sidebar" description="Displays a user's mood in the sidebar block under &quot;Signed in as&quot; on the forum index." css_components="" scalar_type="boolean" scalar_parameters="" display_order="100" sub_group="XenMoods"><![CDATA[1]]></property>
-    <property property_name="editorShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on QR Editor" description="Display a user's mood under his/her avatar next to the quick reply editor." css_components="" scalar_type="boolean" scalar_parameters="" display_order="110" sub_group="XenMoods"><![CDATA[1]]></property>
-    <property property_name="profileShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Profile" description="Displays a user's mood on their profile." css_components="" scalar_type="boolean" scalar_parameters="" display_order="120" sub_group="XenMoods"><![CDATA[1]]></property>
-    <property property_name="memberCardShowMood" property_type="scalar" definition="1" group_name="options" title="Show User Mood on Member Card" description="Displays a user's mood on their member card pop-up." css_components="" scalar_type="boolean" scalar_parameters="" display_order="130" sub_group="XenMoods"><![CDATA[1]]></property>
+    <property property_name="sidebarShowMood" property_type="scalar" definition="1" group_name="moods" title="Show User Mood on Sidebar" description="Displays a user's mood in the sidebar block under his/her other information." css_components="" scalar_type="boolean" scalar_parameters="" display_order="10" sub_group="Display"><![CDATA[1]]></property>
+    <property property_name="threadShowMood" property_type="scalar" definition="1" group_name="moods" title="Show User Mood on Thread View" description="Display a user's mood under his/her avatar inside threads (includes quick reply avatar)." css_components="" scalar_type="boolean" scalar_parameters="" display_order="20" sub_group="Display"><![CDATA[1]]></property>
+    <property property_name="memberCardShowMood" property_type="scalar" definition="1" group_name="moods" title="Show User Mood on Member Card" description="Displays a user's mood on his/her member card pop-up." css_components="" scalar_type="boolean" scalar_parameters="" display_order="30" sub_group="Display"><![CDATA[1]]></property>
+    <property property_name="profileShowMood" property_type="scalar" definition="1" group_name="moods" title="Show User Mood on Profile" description="Displays a user's mood on his/her profile." css_components="" scalar_type="boolean" scalar_parameters="" display_order="40" sub_group="Display"><![CDATA[1]]></property>
+    <group group_name="moods" display_order="1500">
+      <title>Moods</title>
+      <description>Controls the display of moods in XenForo.</description>
+    </group>
   </style_properties>
   <templates>
     <template title="mood_chooser" version_id="3" version_string="1.0.2"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>

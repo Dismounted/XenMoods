@@ -21,11 +21,11 @@ The following template edits must be made to enable XenMoods to work correctly.
 - Template: sidebar_visitor_panel
 
 Find:
-	<dl class="pairsInline stats">
-		<dt>{xen:phrase messages}:</dt> <dd>{xen:number $visitor.message_count}</dd>
-		<dt>{xen:phrase likes}:</dt> <dd>{xen:number $visitor.like_count}</dd>
-		<dt>{xen:phrase points}:</dt> <dd>{xen:number $visitor.trophy_points}</dd>
-	</dl>
+	<div class="stats">
+		<dl class="pairsJustified"><dt>{xen:phrase messages}:</dt> <dd>{xen:number $visitor.message_count}</dd></dl>
+		<dl class="pairsJustified"><dt>{xen:phrase likes}:</dt> <dd>{xen:number $visitor.like_count}</dd></dl>
+		<dl class="pairsJustified"><dt>{xen:phrase points}:</dt> <dd>{xen:number $visitor.trophy_points}</dd></dl>
+	</div>
 
 Add Below:
 	<xen:if is="@sidebarShowMood">
@@ -34,32 +34,10 @@ Add Below:
 		</xen:include>
 	</xen:if>
 
-- Template: navigation_visitor_tab
-
-Find:
-	<xen:if hascontent="true"><div class="muted"><xen:contentcheck>{xen:helper usertitle, $visitor}</xen:contentcheck></div></xen:if>
-
-Add Below:
-	<xen:if is="@headerShowMood">
-		<xen:include template="mood_display">
-			<xen:map from="$visitor" to="$user" />
-		</xen:include>
-	</xen:if>
-
-- Template: message_user_info
-
-Find:
-	<div class="avatarHolder"><xen:avatar user="$user" size="m" itemprop="photo" /></div>
-
-Add Before *</div>*:
-	<xen:if is="({$isQuickReply} && @editorShowMood) || (!{$isQuickReply} && @messageShowMood)">
-		<xen:include template="mood_display" />
-	</xen:if>
-
 - Template: member_card
 
 Find:
-	<h3 class="username"><a href="{xen:link members, $user}">{$user.username}</a></h3>
+	<h3 class="username"><xen:username user="$user" class="NoOverlay" /></h3>
 
 Add Below:
 	<xen:if is="@memberCardShowMood">
@@ -69,17 +47,12 @@ Add Below:
 - Template: member_view
 
 Find:
-	<xen:if is="{$visitor.user_id} AND {$user.user_id} != {$visitor.user_id}">
-		<div class="muted">
-			<xen:if is="{$user.isFollowingVisitor}">
-				{xen:phrase user_is_following_you, 'user={$user.username}'}
-			<xen:else />
-				{xen:phrase user_is_not_following_you, 'user={$user.username}'}
-			</xen:if>
-		</div>
+	<xen:if is="{$canViewOnlineStatus}">
+		<dt>{xen:phrase last_activity}:</dt>
+			<dd><xen:datetime time="$user.effective_last_activity" /></dd>
 	</xen:if>
 
-Add Below:
+Add Above:
 	<xen:if is="@profileShowMood">
 		<xen:include template="mood_display" />
 	</xen:if>
@@ -87,13 +60,11 @@ Add Below:
 Display Locations
 ----
 
-Moods are currently displayed in six locations which can be turned on or off through Style Properties (property location in parenthesis):
-- Sidebar Visitor Panel (Options, Show User Mood on Sidebar)
-- Navigation Visitor Tab (Header and Navigation, Show User Mood)
-- Message User Info on Posts (Message User Info, Show Author Mood)
-- Under Avatar on Quick Reply (Options, Show User Mood on QR Editor)
-- Member Card (Options, Show User Mood on Member Card)
-- Member Profile (Options, Show User Mood on Profile)
+Moods are currently displayed in four locations which can be turned on or off through Style Properties (property location in parenthesis):
+- Sidebar Visitor Panel (XenMoods, Show User Mood on Sidebar)
+- Thread View (XenMoods, Show User Mood on Thread View)
+- Member Card (XenMoods, Show User Mood on Member Card)
+- Member Profile (XenMoods, Show User Mood on Profile)
 
 Adding, Editing and Deleting Moods
 ----
@@ -102,12 +73,12 @@ The manager is located at *admin.php?moods/*. The link can be found in the left 
 
 The interface should be intuitive enough to work out. Enter image URLs as relative, e.g. *styles/default/xenmoods/happy.png*.
 
-NB. You must have the Admin Permission *Can Manage Moods* ticked.
+NB. You must have the Admin Permission *Manage moods* ticked.
 
 User Permissions
 ----
 
-You can set permissions for specific user groups as to whether they can see and have moods. The two permissions are *Can View Moods* and *Can Have Mood*.
+You can set permissions for specific user groups as to whether they can see and have moods. The two permissions are *View moods* and *Have moods*.
 
 Upgrading
 ----

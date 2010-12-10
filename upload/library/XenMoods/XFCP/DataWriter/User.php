@@ -1,11 +1,11 @@
 <?php
 /**
- * Data writer for users. Extends the default writer to add mood field.
+ * Extends the default user data writer to add mood field.
  *
  * @package XenMoods
  */
 
-class XenMoods_DataWriter_User extends XenForo_DataWriter_User
+class XenMoods_XFCP_DataWriter_User extends XFCP_XenMoods_XFCP_DataWriter_User
 {
 	/**
 	 * Gets the fields that are defined for the table. See parent for explanation.

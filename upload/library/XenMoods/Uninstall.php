@@ -70,7 +70,7 @@ class XenMoods_Uninstall
 		// create our uninstall object
 		$uninstall = self::getInstance();
 
-		for ($i = $startVersionId; $i >= $endVersionId; $i--)
+		for ($i = $startVersionId; $i >= $endVersionId; --$i)
 		{
 			$method = '_uninstallVersion' . $i;
 			if (method_exists($uninstall, $method) === false)
