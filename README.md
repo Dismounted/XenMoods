@@ -21,11 +21,11 @@ The following template edits must be made to enable XenMoods to work correctly.
 - Template: sidebar_visitor_panel
 
 Find:
-	<dl class="pairsInline stats">
-		<dt>{xen:phrase messages}:</dt> <dd>{xen:number $visitor.message_count}</dd>
-		<dt>{xen:phrase likes}:</dt> <dd>{xen:number $visitor.like_count}</dd>
-		<dt>{xen:phrase points}:</dt> <dd>{xen:number $visitor.trophy_points}</dd>
-	</dl>
+	<div class="stats">
+		<dl class="pairsJustified"><dt>{xen:phrase messages}:</dt> <dd>{xen:number $visitor.message_count}</dd></dl>
+		<dl class="pairsJustified"><dt>{xen:phrase likes}:</dt> <dd>{xen:number $visitor.like_count}</dd></dl>
+		<dl class="pairsJustified"><dt>{xen:phrase points}:</dt> <dd>{xen:number $visitor.trophy_points}</dd></dl>
+	</div>
 
 Add Below:
 	<xen:if is="@sidebarShowMood">
@@ -37,7 +37,7 @@ Add Below:
 - Template: member_card
 
 Find:
-	<h3 class="username"><a href="{xen:link members, $user}">{$user.username}</a></h3>
+	<h3 class="username"><xen:username user="$user" class="NoOverlay" /></h3>
 
 Add Below:
 	<xen:if is="@memberCardShowMood">
@@ -47,17 +47,12 @@ Add Below:
 - Template: member_view
 
 Find:
-	<xen:if is="{$visitor.user_id} AND {$user.user_id} != {$visitor.user_id}">
-		<div class="muted">
-			<xen:if is="{$user.isFollowingVisitor}">
-				{xen:phrase user_is_following_you, 'user={$user.username}'}
-			<xen:else />
-				{xen:phrase user_is_not_following_you, 'user={$user.username}'}
-			</xen:if>
-		</div>
+	<xen:if is="{$canViewOnlineStatus}">
+		<dt>{xen:phrase last_activity}:</dt>
+			<dd><xen:datetime time="$user.effective_last_activity" /></dd>
 	</xen:if>
 
-Add Below:
+Add Above:
 	<xen:if is="@profileShowMood">
 		<xen:include template="mood_display" />
 	</xen:if>
