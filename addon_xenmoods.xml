@@ -50,6 +50,8 @@
 <xen:require css="filter_list.css" />
 <xen:require js="js/xenforo/filter_list.js" />
 
+<xen:require css="mood_list.css" />
+
 <xen:form action="{xen:adminlink moods}" class="section">
 	<xen:if is="{$moods}">
 		<h2 class="subHeading">
@@ -79,7 +81,18 @@
 	<xen:else />
 		<div class="noResults">{xen:phrase no_moods_have_been_added_yet}</div>
 	</xen:if>
-</xen:form>]]></template>
+</xen:form>
+
+<div class="moodBottomCtrl"><a href="{xen:adminlink moods/add}" class="button">+ {xen:phrase add_new_mood}</a></div>]]></template>
+    <template title="mood_list.css"><![CDATA[.moodBottomCtrl
+{
+	padding-bottom: 15px;
+}
+
+.moodBottomCtrl a
+{
+	float: right;
+}]]></template>
     <template title="mood_make_default"><![CDATA[<xen:title>{xen:phrase confirm_selection_default_mood}: {$mood.title}</xen:title>
 <xen:h1>{xen:phrase confirm_selection_default_mood}</xen:h1>
 
