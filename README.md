@@ -34,16 +34,6 @@ Add Below:
 		</xen:include>
 	</xen:if>
 
-- Template: message_user_info
-
-Find:
-	<div class="avatarHolder"><xen:avatar user="$user" size="m" itemprop="photo" /></div>
-
-Add Before *</div>*:
-	<xen:if is="({$isQuickReply} && @editorShowMood) || (!{$isQuickReply} && @messageShowMood)">
-		<xen:include template="mood_display" />
-	</xen:if>
-
 - Template: member_card
 
 Find:
@@ -75,10 +65,9 @@ Add Below:
 Display Locations
 ----
 
-Moods are currently displayed in six locations which can be turned on or off through Style Properties (property location in parenthesis):
-- Message User Info on Posts (Message Elements, Show Author Mood)
+Moods are currently displayed in four locations which can be turned on or off through Style Properties (property location in parenthesis):
 - Sidebar Visitor Panel (XenMoods, Show User Mood on Sidebar)
-- Under Avatar on Quick Reply (XenMoods, Show User Mood on Quick Reply)
+- Thread View (XenMoods, Show User Mood on Thread View)
 - Member Card (XenMoods, Show User Mood on Member Card)
 - Member Profile (XenMoods, Show User Mood on Profile)
 
