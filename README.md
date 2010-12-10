@@ -34,18 +34,6 @@ Add Below:
 		</xen:include>
 	</xen:if>
 
-- Template: navigation_visitor_tab
-
-Find:
-	<xen:if hascontent="true"><div class="muted"><xen:contentcheck>{xen:helper usertitle, $visitor}</xen:contentcheck></div></xen:if>
-
-Add Below:
-	<xen:if is="@headerShowMood">
-		<xen:include template="mood_display">
-			<xen:map from="$visitor" to="$user" />
-		</xen:include>
-	</xen:if>
-
 - Template: message_user_info
 
 Find:
