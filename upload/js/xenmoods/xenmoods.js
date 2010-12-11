@@ -15,10 +15,19 @@ var XenMoods = {};
 				{},
 				function(ajaxData, textStatus)
 				{
-					if (ajaxData.moodImageUrl)
+					$link.parents('.xenOverlay').data('overlay').close();
+
+					if (ajaxData._redirectMessage && ajaxData.moodImageUrl)
 					{
-						// linked moods are the user's own!
-						$('.userMood a img').attr('src', ajaxData.moodImageUrl);
+						XenForo.alert(ajaxData._redirectMessage, '', 1000, function()
+						{
+							// linked moods are the user's own!
+							$('.userMood a img').xfFadeUp(XenForo.speed.normal, function()
+							{
+								$('.userMood a img').attr('src', ajaxData.moodImageUrl);
+								$('.userMood a img').xfFadeDown(XenForo.speed.normal);
+							});
+						});
 					}
 				}
 			);

@@ -250,7 +250,7 @@
 
 	<div class="userMood">
 		<xen:if is="{$visitor.user_id} == {$user.user_id} && {$canHaveMood}">
-			<a href="{xen:link moods/mood-chooser, '', 'selected={$user.mood_id}', 'redirect={$requestPaths.requestUri}'}" class="OverlayTrigger Tooltip" title="{xen:phrase mood_chooser}" data-offsetY="-8">
+			<a href="{xen:link moods/mood-chooser, '', 'selected={$user.mood_id}', 'redirect={$requestPaths.requestUri}'}" class="OverlayTrigger Tooltip" title="{xen:phrase mood_chooser}" data-cacheOverlay="false" data-offsetY="-8">
 				<img src="{$moodImageUrl}" alt="{$moods.{$user.mood_id}.title}" />
 			</a>
 		<xen:else />
