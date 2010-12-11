@@ -190,10 +190,12 @@
     </group>
   </style_properties>
   <templates>
-    <template title="mood_chooser" version_id="3" version_string="1.0.2"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>
+    <template title="mood_chooser" version_id="5" version_string="1.0.4"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>
 
 <xen:require css="chooser_overlay.css" />
 <xen:require css="mood_chooser.css" />
+
+<xen:require js="js/xenmoods/xenmoods.js" />
 
 <div class="section moodChooser" data-overlayClass="chooserOverlay">
 
@@ -203,7 +205,7 @@
 
 		<xen:foreach loop="$moods" key="$moodId" value="$mood">
 			<li{xen:if "{$selected} == '{$mood.mood_id}'", ' class="currentMood"'}>
-				<a href="{xen:link 'moods/mood-chooser', '', 'mood_id={$mood.mood_id}', '_xfToken={$visitor.csrf_token_page}', 'redirect={$redirect}'}">
+				<a href="{xen:link 'moods/mood-chooser', '', 'mood_id={$mood.mood_id}', '_xfToken={$visitor.csrf_token_page}', 'redirect={$redirect}'}" class="UpdateMood">
 					<img src="{$mood.image_url}" alt="{$mood.title}" />
 				</a>
 			</li>
@@ -241,7 +243,7 @@
 	background-color: {xen:property primaryLighterStill};
 	text-decoration: none;
 }]]></template>
-    <template title="mood_display" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:if is="{$canViewMoods}">
+    <template title="mood_display" version_id="5" version_string="1.0.4"><![CDATA[<xen:if is="{$canViewMoods}">
 	<xen:require css="mood_display.css" />
 
 	<xen:set var="$moodImageUrl">{xen:if "{$user.mood_id}", {$moods.{$user.mood_id}.image_url}, {$moods.{$defaultMoodId}.image_url}}</xen:set>
