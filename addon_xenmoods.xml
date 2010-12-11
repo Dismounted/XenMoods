@@ -115,9 +115,9 @@
   <code_event_listeners>
     <listener event_id="front_controller_pre_view" execute_order="10" callback_class="XenMoods_Listener_FrontControllerPreView" callback_method="init" active="1" description="Injects mood data so that it can be accessed in templates."/>
     <listener event_id="init_dependencies" execute_order="10" callback_class="XenMoods_Listener_InitDependencies" callback_method="init" active="1" description="Pre-loads all moods for use."/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="XenMoods_Listener_LoadClassDataWriter" callback_method="init" active="1" description="Extends XenForo data writers with XenMoods-specific methods."/>
     <listener event_id="load_class_model" execute_order="10" callback_class="XenMoods_Listener_LoadClassModel" callback_method="init" active="1" description="Extends XenForo models with XenMoods-specific methods."/>
     <listener event_id="template_hook" execute_order="10" callback_class="XenMoods_Listener_TemplateHook" callback_method="init" active="1" description="Modifies the output of templates."/>
-    <listener event_id="load_class_datawriter" execute_order="10" callback_class="XenMoods_Listener_LoadClassDataWriter" callback_method="init" active="1" description="Extends XenForo data writers with XenMoods-specific methods."/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
@@ -256,7 +256,7 @@
 		</xen:if>
 	</div>
 </xen:if>]]></template>
-    <template title="mood_display.css" version_id="3" version_string="1.0.2"><![CDATA[.userMood
+    <template title="mood_display.css" version_id="5" version_string="1.0.4"><![CDATA[.userMood
 {
 	padding-top: 10px;
 }
@@ -268,7 +268,7 @@
 
 .profilePage .userMood
 {
-	padding-top: 4px;
+	margin-top: -10px;
 }
 
 .avatarHolder .userMood img
