@@ -1,4 +1,4 @@
-﻿XenMoods
+XenMoods
 ====
 
 XenMoods is an add-on for XenForo that allows users to set their current mood.
