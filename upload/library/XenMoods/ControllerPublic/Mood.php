@@ -49,9 +49,14 @@ class XenMoods_ControllerPublic_Mood extends XenForo_ControllerPublic_Abstract
 			$dw->set('mood_id', $moodId);
 			$dw->save();
 
+			// provide the image url for ajax requests
+			$moodImageUrl = $moods[$moodId]['image_url'];
+
 			return $this->responseRedirect(
 				XenForo_ControllerResponse_Redirect::SUCCESS,
-				$this->getDynamicRedirect(false, false)
+				$this->getDynamicRedirect(false, false),
+				null,
+				array('moodImageUrl' => $moodImageUrl)
 			);
 		}
 		else
