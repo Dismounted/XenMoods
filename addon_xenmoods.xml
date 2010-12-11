@@ -261,6 +261,11 @@
 	padding-top: 10px;
 }
 
+.userMood img
+{
+	display: block;
+}
+
 .userInfo .userMood
 {
 	float: right;
