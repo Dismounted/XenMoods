@@ -149,6 +149,7 @@
     <phrase title="moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
     <phrase title="mood_chooser" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Chooser]]></phrase>
     <phrase title="mood_image_url" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Image URL]]></phrase>
+    <phrase title="my_mood" global_cache="0" version_id="5" version_string="1.0.4"><![CDATA[My mood]]></phrase>
     <phrase title="no_moods_have_been_added_yet" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[No moods have been added yet.]]></phrase>
     <phrase title="permission_group_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
     <phrase title="permission_interface_moodPermissions" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
@@ -275,7 +276,7 @@
 
 .profilePage .userMood
 {
-	margin-top: -10px;
+	margin-top: -8px;
 }
 
 .avatarHolder .userMood img

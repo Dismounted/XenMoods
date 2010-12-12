@@ -47,14 +47,15 @@ Add Below:
 - Template: member_view
 
 Find:
-	<xen:if is="{$canViewOnlineStatus}">
-		<dt>{xen:phrase last_activity}:</dt>
-			<dd><xen:datetime time="$user.effective_last_activity" /></dd>
+	<xen:if is="{$user.gender}">
+		<dt>{xen:phrase gender}:</dt>
+			<dd itemprop="gender"><xen:if is="{$user.gender} == 'male'">{xen:phrase male}<xen:else />{xen:phrase female}</xen:if></dd>
 	</xen:if>
 
-Add Above:
+Add Below:
 	<xen:if is="@profileShowMood">
-		<xen:include template="mood_display" />
+		<dt>{xen:phrase my_mood}:</dt>
+			<dd><xen:include template="mood_display" /></dd>
 	</xen:if>
 
 Display Locations
