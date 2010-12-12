@@ -55,7 +55,7 @@ class XenMoods_ControllerPublic_Mood extends XenForo_ControllerPublic_Abstract
 				null,
 				array(
 					'moodChooserUrl' => XenForo_Link::buildPublicLink('moods/mood-chooser'),
-					'moodImageUrl' => (($moodId) ? $moods[$moodId]['image_url'] : $this->_getMoodModel()->getDefaultMoodUrl())
+					'moodImageUrl' => (($moodId) ? $moods[$moodId]['image_url'] : $this->_getMoodModel()->getDefaultMoodUrl($moods))
 				)
 			);
 		}
