@@ -1,6 +1,14 @@
 Change Log
 ----
 
+Version 1.1.0 (14 Dec 2010)
+- Change moods with AJAX, fancy animations included.
+- Publish mood changes into the news feed.
+- Revise profile placement.
+- Fix profile position margin issue.
+- Fix tooltip alignment issue in certain situations.
+- Various code improvements.
+
 Version 1.0.4 (10 Dec 2010)
 - XenForo 1.0.0 Beta 4 compatibility.
 - Consolidate style properties.
