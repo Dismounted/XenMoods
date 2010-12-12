@@ -183,6 +183,25 @@ class XenMoods_Install
 	}
 
 	/**
+	 * Install routine for version ID 6.
+	 *
+	 * @return void
+	 */
+	protected function _installVersion6()
+	{
+		$db = $this->_getDb();
+
+		$queries = XenMoods_Install_Data_MySql::getQueries(6);
+		foreach ($queries AS $query)
+		{
+			$db->query($query);
+		}
+
+		// rebuild caches
+		XenForo_Model::create('XenForo_Model_ContentType')->rebuildContentTypeCache();
+	}
+
+	/**
 	 * Fetches all the mood images uploaded into the default directory.
 	 *
 	 * @return array List of mood images uploaded
