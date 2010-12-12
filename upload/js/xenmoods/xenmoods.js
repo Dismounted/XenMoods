@@ -24,8 +24,9 @@ var XenMoods = {};
 							// linked moods are the user's own!
 							$('.userMood a img').xfFadeUp(XenForo.speed.normal, function()
 							{
-								$('.userMood a img').attr('src', ajaxData.moodImageUrl);
-								$('.userMood a img').xfFadeDown(XenForo.speed.normal);
+								$('.userMood a img')
+									.attr('src', ajaxData.moodImageUrl)
+									.xfFadeDown(XenForo.speed.normal);
 							});
 						});
 					}
