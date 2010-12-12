@@ -150,6 +150,8 @@
     <phrase title="moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
     <phrase title="mood_chooser" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Chooser]]></phrase>
     <phrase title="mood_image_url" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Image URL]]></phrase>
+    <phrase title="news_feed_user_mood_changed" global_cache="0" version_id="5" version_string="1.0.4"><![CDATA[{username} changed their mood from {oldMood} to {newMood}.]]></phrase>
+    <phrase title="news_feed_user_mood_set" global_cache="0" version_id="5" version_string="1.0.4"><![CDATA[{username} set their mood to {newMood}.]]></phrase>
     <phrase title="no_moods_have_been_added_yet" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[No moods have been added yet.]]></phrase>
     <phrase title="permission_group_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
     <phrase title="permission_interface_moodPermissions" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
@@ -285,5 +287,13 @@
 	margin-left: auto;
 	margin-right: auto;
 }]]></template>
+    <template title="news_feed_item_user_mood" version_id="5" version_string="1.0.4"><![CDATA[<h3 class="description"><xen:if is="{$mood.old}">{xen:phrase news_feed_user_mood_changed,
+	'username={xen:helper username, $user, 'primaryText'}',
+	'oldMood=<em>{$mood.old}</em>',
+	'newMood=<em>{$mood.new}</em>'
+}<xen:else />{xen:phrase news_feed_user_mood_set,
+	'username={xen:helper username, $user, 'primaryText'}',
+	'newMood=<em>{$mood.new}</em>'
+}</xen:if></h3>]]></template>
   </templates>
 </addon>
