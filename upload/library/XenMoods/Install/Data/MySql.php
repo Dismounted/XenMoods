@@ -90,4 +90,30 @@ $queries[] = "
 
 		return $queries;
 	}
+
+	/**
+	 * Schema definitions for version 6.
+	 *
+	 * @return array List of queries to run
+	 */
+	protected static function _getQueriesVersion6()
+	{
+		$queries = array();
+
+$queries[] = "
+	INSERT INTO xf_content_type
+		(content_type, addon_id, fields)
+	VALUES
+		('mood', 'xenmoods', '')
+";
+
+$queries[] = "
+	INSERT INTO xf_content_type_field
+		(content_type, field_name, field_value)
+	VALUES
+		('mood', 'news_feed_handler_class', 'XenMoods_NewsFeedHandler_Mood')
+";
+
+		return $queries;
+	}
 }
