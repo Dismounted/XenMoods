@@ -41,7 +41,7 @@ var XenMoods = {};
 
 	// *********************************************************************
 
-	XenForo.register('.UpdateMood', 'XenMoods.UpdateMood');
+	XenForo.register('a.UpdateMood', 'XenMoods.UpdateMood');
 
 }
 (jQuery, this, document);
