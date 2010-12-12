@@ -54,7 +54,7 @@ Find:
 
 Add Below:
 	<xen:if is="@profileShowMood">
-		<dt>{xen:phrase my_mood}:</dt>
+		<dt>{xen:phrase mood}:</dt>
 			<dd><xen:include template="mood_display" /></dd>
 	</xen:if>
 
