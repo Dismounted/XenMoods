@@ -49,14 +49,14 @@ class XenMoods_ControllerPublic_Mood extends XenForo_ControllerPublic_Abstract
 			$dw->set('mood_id', $moodId);
 			$dw->save();
 
-			// provide the image url for ajax requests
-			$moodImageUrl = $moods[$moodId]['image_url'];
-
 			return $this->responseRedirect(
 				XenForo_ControllerResponse_Redirect::SUCCESS,
 				$this->getDynamicRedirect(false, false),
 				null,
-				array('moodImageUrl' => $moodImageUrl)
+				array(
+					'moodChooserUrl' => XenForo_Link::buildPublicLink('moods/mood-chooser'),
+					'moodImageUrl' => $moods[$moodId]['image_url']
+				)
 			);
 		}
 		else
@@ -64,7 +64,7 @@ class XenMoods_ControllerPublic_Mood extends XenForo_ControllerPublic_Abstract
 			$viewParams = array(
 				'moods' => $this->_getMoodData(),
 				'redirect' => $this->_input->filterSingle('redirect', XenForo_Input::STRING),
-				'selected' => $this->_input->filterSingle('selected', XenForo_Input::UINT)
+				'selected' => $visitor->get('mood_id')
 			);
 			return $this->responseView('XenMoods_ViewPublic_Mood_MoodChooser', 'mood_chooser', $viewParams);
 		}
