@@ -23,4 +23,66 @@ class XenMoods_XFCP_DataWriter_User extends XFCP_XenMoods_XFCP_DataWriter_User
 
 		return $fields;
 	}
+
+	/**
+	 * Post-save handling.
+	 */
+	protected function _postSave()
+	{
+		parent::_postSave();
+
+		// publish events to news feed
+		if ($this->isUpdate())
+		{
+			$this->_publishIfMoodChanged();
+
+			//TODO: check when core can handle custom fields
+		}
+	}
+
+	/**
+	 * Wrapper around _publish. Will publish mood changes.
+	 */
+	protected function _publishIfMoodChanged()
+	{
+		if ($this->isChanged('mood_id') && $newValue = $this->get('mood_id'))
+		{
+			// (nearly) always better to get data from the cache
+			$moods = $this->getModelFromCache('XenForo_Model_DataRegistry')->get('moods');
+			if (!is_array($moods))
+			{
+				$moods = $this->getModelFromCache('XenMoods_Model_Mood')->getAllMoods();
+			}
+
+			// moods may change in the future, so get the title now
+			$oldValue = $this->getExisting('mood_id');
+			$oldMood = $moods[$oldValue]['title'];
+			$newMood = $moods[$newValue]['title'];
+
+			if (!empty($newMood))
+			{
+				$this->_publishMood(array(
+					'old' => $oldMood,
+					'new' => $newMood
+				));
+			}
+		}
+	}
+
+	/**
+	 * Publish a mood change to the news feed.
+	 *
+	 * @param mixed extra data
+	 */
+	protected function _publishMood($extraData = null)
+	{
+		$this->_getNewsFeedModel()->publish(
+			$this->get('user_id'),
+			$this->get('username'),
+			'mood',
+			0,
+			'edit',
+			$extraData
+		);
+	}
 }

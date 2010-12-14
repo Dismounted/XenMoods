@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="xenmoods" title="XenMoods" version_string="1.0.4" version_id="5" url="http://xenforo.com/community/threads/xenmoods.5885/" install_callback_class="XenMoods_Install" install_callback_method="install" uninstall_callback_class="XenMoods_Uninstall" uninstall_callback_method="uninstall">
+<addon addon_id="xenmoods" title="XenMoods" version_string="1.1.0" version_id="6" url="http://xenforo.com/community/threads/xenmoods.5885/" install_callback_class="XenMoods_Install" install_callback_method="install" uninstall_callback_class="XenMoods_Uninstall" uninstall_callback_method="uninstall">
   <admin_navigation>
     <navigation navigation_id="moods" parent_navigation_id="options" display_order="20" link="moods" admin_permission_id="mood" debug_only="0" hide_no_children="0"/>
   </admin_navigation>
@@ -115,9 +115,9 @@
   <code_event_listeners>
     <listener event_id="front_controller_pre_view" execute_order="10" callback_class="XenMoods_Listener_FrontControllerPreView" callback_method="init" active="1" description="Injects mood data so that it can be accessed in templates."/>
     <listener event_id="init_dependencies" execute_order="10" callback_class="XenMoods_Listener_InitDependencies" callback_method="init" active="1" description="Pre-loads all moods for use."/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="XenMoods_Listener_LoadClassDataWriter" callback_method="init" active="1" description="Extends XenForo data writers with XenMoods-specific methods."/>
     <listener event_id="load_class_model" execute_order="10" callback_class="XenMoods_Listener_LoadClassModel" callback_method="init" active="1" description="Extends XenForo models with XenMoods-specific methods."/>
     <listener event_id="template_hook" execute_order="10" callback_class="XenMoods_Listener_TemplateHook" callback_method="init" active="1" description="Modifies the output of templates."/>
-    <listener event_id="load_class_datawriter" execute_order="10" callback_class="XenMoods_Listener_LoadClassDataWriter" callback_method="init" active="1" description="Extends XenForo data writers with XenMoods-specific methods."/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
@@ -146,9 +146,12 @@
     <phrase title="delete_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Delete Mood]]></phrase>
     <phrase title="edit_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Edit Mood]]></phrase>
     <phrase title="make_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Make Default]]></phrase>
+    <phrase title="mood" global_cache="0" version_id="5" version_string="1.0.4"><![CDATA[Mood]]></phrase>
     <phrase title="moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
     <phrase title="mood_chooser" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Chooser]]></phrase>
     <phrase title="mood_image_url" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Image URL]]></phrase>
+    <phrase title="news_feed_user_mood_changed" global_cache="0" version_id="5" version_string="1.0.4"><![CDATA[{username} changed their mood from {oldMood} to {newMood}.]]></phrase>
+    <phrase title="news_feed_user_mood_set" global_cache="0" version_id="5" version_string="1.0.4"><![CDATA[{username} set their mood to {newMood}.]]></phrase>
     <phrase title="no_moods_have_been_added_yet" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[No moods have been added yet.]]></phrase>
     <phrase title="permission_group_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
     <phrase title="permission_interface_moodPermissions" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
@@ -190,10 +193,12 @@
     </group>
   </style_properties>
   <templates>
-    <template title="mood_chooser" version_id="3" version_string="1.0.2"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>
+    <template title="mood_chooser" version_id="5" version_string="1.0.4"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>
 
 <xen:require css="chooser_overlay.css" />
 <xen:require css="mood_chooser.css" />
+
+<xen:require js="js/xenmoods/xenmoods.js" />
 
 <div class="section moodChooser" data-overlayClass="chooserOverlay">
 
@@ -203,7 +208,7 @@
 
 		<xen:foreach loop="$moods" key="$moodId" value="$mood">
 			<li{xen:if "{$selected} == '{$mood.mood_id}'", ' class="currentMood"'}>
-				<a href="{xen:link 'moods/mood-chooser', '', 'mood_id={$mood.mood_id}', '_xfToken={$visitor.csrf_token_page}', 'redirect={$redirect}'}">
+				<a href="{xen:link 'moods/mood-chooser', '', 'mood_id={$mood.mood_id}', '_xfToken={$visitor.csrf_token_page}', 'redirect={$redirect}'}" class="UpdateMood">
 					<img src="{$mood.image_url}" alt="{$mood.title}" />
 				</a>
 			</li>
@@ -241,14 +246,14 @@
 	background-color: {xen:property primaryLighterStill};
 	text-decoration: none;
 }]]></template>
-    <template title="mood_display" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[<xen:if is="{$canViewMoods}">
+    <template title="mood_display" version_id="5" version_string="1.0.4"><![CDATA[<xen:if is="{$canViewMoods}">
 	<xen:require css="mood_display.css" />
 
 	<xen:set var="$moodImageUrl">{xen:if "{$user.mood_id}", {$moods.{$user.mood_id}.image_url}, {$moods.{$defaultMoodId}.image_url}}</xen:set>
 
 	<div class="userMood">
 		<xen:if is="{$visitor.user_id} == {$user.user_id} && {$canHaveMood}">
-			<a href="{xen:link moods/mood-chooser, '', 'selected={$user.mood_id}', 'redirect={$requestPaths.requestUri}'}" class="OverlayTrigger Tooltip" title="{xen:phrase mood_chooser}" data-offsetY="-8">
+			<a href="{xen:link moods/mood-chooser, '', 'redirect={$requestPaths.requestUri}'}" class="OverlayTrigger Tooltip" title="{xen:phrase mood_chooser}" data-cacheOverlay="false" data-offsetY="-8">
 				<img src="{$moodImageUrl}" alt="{$moods.{$user.mood_id}.title}" />
 			</a>
 		<xen:else />
@@ -256,9 +261,14 @@
 		</xen:if>
 	</div>
 </xen:if>]]></template>
-    <template title="mood_display.css" version_id="3" version_string="1.0.2"><![CDATA[.userMood
+    <template title="mood_display.css" version_id="5" version_string="1.0.4"><![CDATA[.userMood
 {
 	padding-top: 10px;
+}
+
+.userMood img
+{
+	display: block;
 }
 
 .userInfo .userMood
@@ -268,7 +278,7 @@
 
 .profilePage .userMood
 {
-	padding-top: 4px;
+	margin-top: -7px;
 }
 
 .avatarHolder .userMood img
@@ -277,5 +287,13 @@
 	margin-left: auto;
 	margin-right: auto;
 }]]></template>
+    <template title="news_feed_item_user_mood" version_id="5" version_string="1.0.4"><![CDATA[<h3 class="description"><xen:if is="{$mood.old}">{xen:phrase news_feed_user_mood_changed,
+	'username={xen:helper username, $user, 'primaryText'}',
+	'oldMood=<em>{$mood.old}</em>',
+	'newMood=<em>{$mood.new}</em>'
+}<xen:else />{xen:phrase news_feed_user_mood_set,
+	'username={xen:helper username, $user, 'primaryText'}',
+	'newMood=<em>{$mood.new}</em>'
+}</xen:if></h3>]]></template>
   </templates>
 </addon>

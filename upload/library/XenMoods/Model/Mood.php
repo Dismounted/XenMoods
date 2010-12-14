@@ -113,6 +113,31 @@ class XenMoods_Model_Mood extends XenForo_Model
 	}
 
 	/**
+	 * Fetches the default mood's URL from a list of moods supplied. If a list is
+	 * not supplied, the moods will be fetched from the database directly.
+	 *
+	 * @param array List of moods, should contain as much data as getAllMoodsForCache()
+	 *
+	 * @return integer|false Mood ID on success, false on failure
+	 */
+	public function getDefaultMoodUrl($moods = null)
+	{
+		if ($moods === null)
+		{
+			$moods = $this->getAllMoodsForCache();
+		}
+
+		$moodId = $this->getDefaultMoodId($moods);
+
+		if (isset($moods[$moodId]['image_url']))
+		{
+			return $moods[$moodId]['image_url'];
+		}
+
+		return false;
+	}
+
+	/**
 	 * Checks and sets to make sure there is only one default mood.
 	 *
 	 * @param integer The new default mood's ID

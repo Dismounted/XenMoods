@@ -100,4 +100,23 @@ class XenMoods_Uninstall
 			$db->query($query);
 		}
 	}
+
+	/**
+	 * Uninstall routine for version ID 6.
+	 *
+	 * @return void
+	 */
+	protected function _uninstallVersion6()
+	{
+		$db = $this->_getDb();
+
+		$queries = XenMoods_Uninstall_Data_MySql::getQueries(6);
+		foreach ($queries AS $query)
+		{
+			$db->query($query);
+		}
+
+		// rebuild caches
+		XenForo_Model::create('XenForo_Model_ContentType')->rebuildContentTypeCache();
+	}
 }

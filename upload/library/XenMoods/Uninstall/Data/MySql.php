@@ -38,6 +38,7 @@ class XenMoods_Uninstall_Data_MySql
 	protected static function _getQueriesVersion1()
 	{
 		$queries = array();
+
 $queries[] = "
 	DROP TABLE xf_mood
 ";
@@ -45,6 +46,33 @@ $queries[] = "
 $queries[] = "
 	ALTER TABLE xf_user
 	DROP mood_id
+";
+
+		return $queries;
+	}
+
+	/**
+	 * Uninstall queries for version 6.
+	 *
+	 * @return array List of queries to run
+	 */
+	protected static function _getQueriesVersion6()
+	{
+		$queries = array();
+
+$queries[] = "
+	DELETE FROM xf_content_type
+	WHERE content_type = 'mood'
+";
+
+$queries[] = "
+	DELETE FROM xf_content_type_field
+	WHERE content_type = 'mood'
+";
+
+$queries[] = "
+	DELETE FROM xf_news_feed
+	WHERE content_type = 'mood'
 ";
 
 		return $queries;
