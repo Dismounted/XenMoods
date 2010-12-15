@@ -25,7 +25,7 @@ class XenMoods_Uninstall_Data_MySql
 		}
 
 		$args = func_get_args();
-		$args = array_shift($args);
+		$args = array_slice($args, 1);
 
 		return call_user_func_array(array(__CLASS__, $method), $args);
 	}
