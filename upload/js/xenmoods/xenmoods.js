@@ -8,6 +8,12 @@ var XenMoods = {};
 	{
 		$link.click(function(e)
 		{
+			if ($link.parents('.xenOverlay').length == 0)
+			{
+				// only do ajax stuff if we are in an overlay
+				return;
+			}
+
 			e.preventDefault();
 
 			XenForo.ajax(
