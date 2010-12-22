@@ -54,10 +54,18 @@ class XenMoods_XFCP_DataWriter_User extends XFCP_XenMoods_XFCP_DataWriter_User
 				$moods = $this->getModelFromCache('XenMoods_Model_Mood')->getAllMoods();
 			}
 
-			// moods may change in the future, so get the title now
+			// moods may change in the future, so get the titles now
 			$oldValue = $this->getExisting('mood_id');
-			$oldMood = $moods[$oldValue]['title'];
-			$newMood = $moods[$newValue]['title'];
+			$oldMood = $newMood = array();
+
+			if (isset($moods[$oldValue]))
+			{
+				$oldMood = $moods[$oldValue]['title'];
+			}
+			if (isset($moods[$newValue]))
+			{
+				$newMood = $moods[$newValue]['title'];
+			}
 
 			if (!empty($newMood))
 			{

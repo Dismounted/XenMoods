@@ -210,16 +210,24 @@ class XenMoods_Install
 	{
 		$moodImages = array();
 
-		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_getRootDir() . '/' . $this->_getMoodImageDir()));
-		while ($it->valid())
+		try
 		{
-			if (!$it->isDot())
-			{
-				$moodName = pathinfo($it->key(), PATHINFO_FILENAME);
-				$moodImages[$moodName] = $it->getSubPathName();
-			}
+			$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_getRootDir() . '/' . $this->_getMoodImageDir()));
 
-			$it->next();
+			while ($it->valid())
+			{
+				if (!$it->isDot())
+				{
+					$moodName = pathinfo($it->key(), PATHINFO_FILENAME);
+					$moodImages[$moodName] = $it->getSubPathName();
+				}
+	
+				$it->next();
+			}
+		}
+		catch (Exception $e)
+		{
+			// do nothing, just continue
 		}
 
 		return $moodImages;
