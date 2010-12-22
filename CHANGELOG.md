@@ -1,6 +1,11 @@
 Change Log
 ----
 
+Version 1.1.1 (22 Dec 2010)
+- Fix install bug if styles directory doesn't exist.
+- Fix "Undefined offset" error on mood changes.
+- Fix mood chooser hanging if not in overlay.
+
 Version 1.1.0 (14 Dec 2010)
 - Change moods with AJAX, fancy animations included.
 - Publish mood changes into the news feed.
