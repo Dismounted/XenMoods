@@ -3,6 +3,8 @@ XenMoods
 
 XenMoods is an add-on for XenForo that allows users to set their current mood.
 
+Please read [Shelley's helpful guide](http://xenforo.com/community/threads/xenmood-guide.9773/) if your moods do not show up after installing.
+
 Installation
 ----
 
