@@ -13,7 +13,7 @@ Installation
 3. Click the *+ Install Add-on* button.
 4. Select *addon_xenmoods.xml* as the file to upload.
 5. Click *Install Add-on* to confirm the installation of XenMoods.
-6. Perform the template edits as below.
+6. Set the appropriate permissions by going to [I]Users[/I], and clicking [I]User Group Permissions[/I].
 
 Display Locations
 ----
