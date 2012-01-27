@@ -15,51 +15,6 @@ Installation
 5. Click *Install Add-on* to confirm the installation of XenMoods.
 6. Perform the template edits as below.
 
-Template Edits
-----
-
-The following template edits must be made to enable XenMoods to work correctly.
-
-- Template: sidebar_visitor_panel
-
-Find:
-	<div class="stats">
-		<dl class="pairsJustified"><dt>{xen:phrase messages}:</dt> <dd>{xen:number $visitor.message_count}</dd></dl>
-		<dl class="pairsJustified"><dt>{xen:phrase likes}:</dt> <dd>{xen:number $visitor.like_count}</dd></dl>
-		<dl class="pairsJustified"><dt>{xen:phrase points}:</dt> <dd>{xen:number $visitor.trophy_points}</dd></dl>
-	</div>
-
-Add Below:
-	<xen:if is="@sidebarShowMood">
-		<xen:include template="mood_display">
-			<xen:map from="$visitor" to="$user" />
-		</xen:include>
-	</xen:if>
-
-- Template: member_card
-
-Find:
-	<h3 class="username"><xen:username user="$user" class="NoOverlay" /></h3>
-
-Add Below:
-	<xen:if is="@memberCardShowMood">
-		<xen:include template="mood_display" />
-	</xen:if>
-
-- Template: member_view
-
-Find:
-	<xen:if is="{$user.gender}">
-		<dt>{xen:phrase gender}:</dt>
-			<dd itemprop="gender"><xen:if is="{$user.gender} == 'male'">{xen:phrase male}<xen:else />{xen:phrase female}</xen:if></dd>
-	</xen:if>
-
-Add Below:
-	<xen:if is="@profileShowMood">
-		<dt>{xen:phrase mood}:</dt>
-			<dd><xen:include template="mood_display" /></dd>
-	</xen:if>
-
 Display Locations
 ----
 
@@ -91,7 +46,7 @@ Upgrading
 3. Activate the *Controls* drop-down for XenMoods, and click *Upgrade*.
 4. Select *addon_xenmoods.xml* as the file to upload.
 5. Click *Upgrade Add-on* to confirm.
-6. Check your template edits to ensure they are up-to-date.
+6. If you are upgrading from pre-1.1.2, remove the template edits made when installing.
 
 Uninstallation
 ----
