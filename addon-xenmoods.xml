@@ -193,7 +193,11 @@
     </group>
   </style_properties>
   <templates>
-    <template title="mood_chooser" version_id="5" version_string="1.0.4"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>
+    <template title="mood_chooser" version_id="7" version_string="1.1.1"><![CDATA[<xen:title>{xen:phrase mood_chooser}</xen:title>
+
+<xen:navigation>
+	<xen:breadcrumb href="{xen:link moods/mood-chooser}">{xen:phrase mood_chooser}</xen:breadcrumb>
+</xen:navigation>
 
 <xen:require css="chooser_overlay.css" />
 <xen:require css="mood_chooser.css" />
