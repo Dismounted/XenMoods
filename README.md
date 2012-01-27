@@ -52,7 +52,6 @@ Uninstallation
 ----
 
 If, for any reason, you would like to uninstall XenMoods, the following steps are necessary:
-1. Undo the template edits that were performed on installation.
-2. Go to your Admin Control Panel homepage, and click *List Add-ons* or *Manage Add-ons*.
-3. Activate the *Controls* drop-down for XenMoods, and click *Uninstall*.
-4. Remove all the files from XenForo (*library/XenMoods/* and *styles/default/xenmoods/*).
+1. Go to your Admin Control Panel homepage, and click *List Add-ons* or *Manage Add-ons*.
+2. Activate the *Controls* drop-down for XenMoods, and click *Uninstall*.
+3. Remove all the files from XenForo (*library/XenMoods/* and *styles/default/xenmoods/*).
