@@ -8,6 +8,13 @@
 class XenMoods_Listener_TemplateHook
 {
 	/**
+	 * Temporary cache of mood displays.
+	 *
+	 * @var array
+	 */
+	protected static $_cache;
+
+	/**
 	 * Initialise the code event
 	 *
 	 * @param string Name of the template hook
@@ -34,34 +41,121 @@ class XenMoods_Listener_TemplateHook
 	 */
 	protected function __construct($name, &$contents, $params, XenForo_Template_Abstract $template)
 	{
-		// mood display on quick reply and message view
-		if ($name == 'message_user_info_avatar')
+		// add mood displays around the place
+		switch ($name)
 		{
-			// check style property
-			if (XenForo_Template_Helper_Core::styleProperty('threadShowMood') == FALSE)
+			case 'sidebar_visitor_panel_stats':
+				$this->_addMoodDisplay(
+					$template,
+					'',
+					$contents,
+					$template->getParam('visitor'),
+					'sidebarShowMood'
+				);
+				break;
+
+			case 'member_card_links':
+				$this->_addMoodDisplay(
+					$template,
+					'',
+					$contents,
+					$template->getParam('user'),
+					'memberCardShowMood'
+				);
+				break;
+
+			case 'member_view_info_block':
+				$this->_addMoodDisplay(
+					$template,
+					'',
+					$contents,
+					$template->getParam('user'),
+					'profileShowMood',
+					TRUE
+				);
+				break;
+
+			case 'message_user_info_avatar':
+				$this->_addMoodDisplay(
+					$template,
+					'<!-- slot: message_user_info_avatar -->',
+					$contents,
+					$params['user'],
+					'threadShowMood',
+					FALSE
+				);
+				break;
+		}
+	}
+
+	/**
+	 * Helper function to add mood display into hook.
+	 *
+	 * @param XenForo_Template_Abstract
+	 * @param string Needle to hook on to (empty for pure pre/append)
+	 * @param string Contents of the hook block
+	 * @param array User of the mood to be displayed
+	 * @param string Style property to check (null to disable check)
+	 * @param boolean Set to true to prepend, false to append
+	 *
+	 * @return void
+	 */
+	protected function _addMoodDisplay(XenForo_Template_Abstract $template, $needle, &$contents, $user, $styleProperty = NULL, $prepend = TRUE)
+	{
+		// check style property
+		if (isset($styleProperty) AND XenForo_Template_Helper_Core::styleProperty($styleProperty) == FALSE)
+		{
+			return;
+		}
+
+		// generate the mood template
+		$moodDisplay = $this->_getMoodTemplate($template, $user);
+
+		// pure prepend/append
+		if (empty($needle))
+		{
+			// do a bit of flip-flopping
+			if ($prepend)
 			{
-				return;
+				$contents = $moodDisplay . $contents;
+			}
+			else
+			{
+				$contents = $contents . $moodDisplay;
 			}
 
-			// generate the mood template
-			$moodDisplay = $this->_getMoodTemplate($template, $params['user']);
-
-			// add it to the master template
-			$needle = '<!-- slot: message_user_info_avatar -->';
-			$contents = str_replace($needle, $needle . $moodDisplay, $contents);
+			return;
 		}
+
+		// do more flip-flopping!
+		if ($prepend)
+		{
+			$replace = $moodDisplay . $needle;
+		}
+		else
+		{
+			$replace = $needle . $moodDisplay;
+		}
+
+		// add it to the master template
+		$contents = str_replace($needle, $replace, $contents);
 	}
 
 	/**
 	 * Helper function to generate mood display.
 	 *
 	 * @param XenForo_Template_Abstract
-	 * @param array Users details of the mood to be displayed
+	 * @param array User of the mood to be displayed
 	 *
 	 * @return string Compiled mood_display template
 	 */
 	protected function _getMoodTemplate(XenForo_Template_Abstract $template, $user)
 	{
+		if (isset(self::$_cache[$user['user_id']]))
+		{
+			return self::$_cache[$user['user_id']];
+		}
+
 		$globalParams = $template->getParams();
 		$model = $this->_getMoodModel();
 
@@ -75,7 +169,10 @@ class XenMoods_Listener_TemplateHook
 			'canHaveMood' => $model->canHaveMood()
 		);
 
-		return $template->create('mood_display', $params)->render();
+		$display = $template->create('mood_display', $params)->render();
+		self::$_cache[$user['user_id']] = $display;
+
+		return $display;
 	}
 
 	/**
