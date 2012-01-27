@@ -135,44 +135,44 @@
     </interface_groups>
   </permissions>
   <phrases>
-    <phrase title="add_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Add New Mood]]></phrase>
-    <phrase title="admin_navigation_moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
-    <phrase title="admin_permission_mood" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Manage moods]]></phrase>
-    <phrase title="all_users_will_move_to_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[All users using this mood will automatically switch to the default mood.]]></phrase>
-    <phrase title="cannot_delete_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[A default mood cannot be deleted. Please assign another mood to be the default before deleting this one.]]></phrase>
-    <phrase title="confirm_deletion_of_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Deletion of Mood]]></phrase>
-    <phrase title="confirm_selection_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Selection of Default Mood]]></phrase>
-    <phrase title="create_new_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Create New Mood]]></phrase>
-    <phrase title="delete_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Delete Mood]]></phrase>
-    <phrase title="edit_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Edit Mood]]></phrase>
-    <phrase title="make_default_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Make Default]]></phrase>
-    <phrase title="mood" global_cache="0" version_id="5" version_string="1.0.4"><![CDATA[Mood]]></phrase>
-    <phrase title="moods" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
-    <phrase title="mood_chooser" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Chooser]]></phrase>
-    <phrase title="mood_image_url" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Image URL]]></phrase>
-    <phrase title="news_feed_user_mood_changed" global_cache="0" version_id="5" version_string="1.0.4"><![CDATA[{username} changed their mood from {oldMood} to {newMood}.]]></phrase>
-    <phrase title="news_feed_user_mood_set" global_cache="0" version_id="5" version_string="1.0.4"><![CDATA[{username} set their mood to {newMood}.]]></phrase>
-    <phrase title="no_moods_have_been_added_yet" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[No moods have been added yet.]]></phrase>
-    <phrase title="permission_group_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
-    <phrase title="permission_interface_moodPermissions" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
-    <phrase title="permission_mood_have" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Have moods]]></phrase>
-    <phrase title="permission_mood_view" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[View moods]]></phrase>
-    <phrase title="please_confirm_that_you_want_to_delete_following_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to delete the following mood]]></phrase>
-    <phrase title="please_confirm_that_you_want_to_mark_following_mood_default" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to mark the following mood as default]]></phrase>
-    <phrase title="please_select_valid_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please select a valid mood.]]></phrase>
-    <phrase title="requested_mood_not_found" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[The requested mood could not be found.]]></phrase>
-    <phrase title="save_mood" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Save Mood]]></phrase>
-    <phrase title="select_mood_you_are_currently_in" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Select the mood you are currently in]]></phrase>
-    <phrase title="style_property_group_moods_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Moods]]></phrase>
-    <phrase title="style_property_group_moods_master_desc" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Controls the display of moods in XenForo.]]></phrase>
-    <phrase title="style_property_memberCardShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood on his/her member card pop-up.]]></phrase>
-    <phrase title="style_property_memberCardShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Member Card]]></phrase>
-    <phrase title="style_property_profileShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood on his/her profile.]]></phrase>
-    <phrase title="style_property_profileShowMood_master" global_cache="0" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Profile]]></phrase>
-    <phrase title="style_property_sidebarShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood in the sidebar block under his/her other information.]]></phrase>
-    <phrase title="style_property_sidebarShowMood_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Show User Mood on Sidebar]]></phrase>
-    <phrase title="style_property_threadShowMood_description_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Display a user's mood under his/her avatar inside threads (includes quick reply avatar).]]></phrase>
-    <phrase title="style_property_threadShowMood_master" global_cache="0" version_id="4" version_string="1.0.3"><![CDATA[Show User Mood on Thread View]]></phrase>
+    <phrase title="add_new_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Add New Mood]]></phrase>
+    <phrase title="admin_navigation_moods" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
+    <phrase title="admin_permission_mood" version_id="4" version_string="1.0.3"><![CDATA[Manage moods]]></phrase>
+    <phrase title="all_users_will_move_to_default_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[All users using this mood will automatically switch to the default mood.]]></phrase>
+    <phrase title="cannot_delete_default_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[A default mood cannot be deleted. Please assign another mood to be the default before deleting this one.]]></phrase>
+    <phrase title="confirm_deletion_of_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Deletion of Mood]]></phrase>
+    <phrase title="confirm_selection_default_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Confirm Selection of Default Mood]]></phrase>
+    <phrase title="create_new_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Create New Mood]]></phrase>
+    <phrase title="delete_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Delete Mood]]></phrase>
+    <phrase title="edit_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Edit Mood]]></phrase>
+    <phrase title="make_default_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Make Default]]></phrase>
+    <phrase title="mood" version_id="5" version_string="1.0.4"><![CDATA[Mood]]></phrase>
+    <phrase title="moods" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Moods]]></phrase>
+    <phrase title="mood_chooser" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Chooser]]></phrase>
+    <phrase title="mood_image_url" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Image URL]]></phrase>
+    <phrase title="news_feed_user_mood_changed" version_id="5" version_string="1.0.4"><![CDATA[{username} changed their mood from {oldMood} to {newMood}.]]></phrase>
+    <phrase title="news_feed_user_mood_set" version_id="5" version_string="1.0.4"><![CDATA[{username} set their mood to {newMood}.]]></phrase>
+    <phrase title="no_moods_have_been_added_yet" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[No moods have been added yet.]]></phrase>
+    <phrase title="permission_group_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
+    <phrase title="permission_interface_moodPermissions" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Mood Permissions]]></phrase>
+    <phrase title="permission_mood_have" version_id="4" version_string="1.0.3"><![CDATA[Have moods]]></phrase>
+    <phrase title="permission_mood_view" version_id="4" version_string="1.0.3"><![CDATA[View moods]]></phrase>
+    <phrase title="please_confirm_that_you_want_to_delete_following_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to delete the following mood]]></phrase>
+    <phrase title="please_confirm_that_you_want_to_mark_following_mood_default" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please confirm that you want to mark the following mood as default]]></phrase>
+    <phrase title="please_select_valid_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Please select a valid mood.]]></phrase>
+    <phrase title="requested_mood_not_found" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[The requested mood could not be found.]]></phrase>
+    <phrase title="save_mood" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Save Mood]]></phrase>
+    <phrase title="select_mood_you_are_currently_in" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Select the mood you are currently in]]></phrase>
+    <phrase title="style_property_group_moods_master" version_id="4" version_string="1.0.3"><![CDATA[Moods]]></phrase>
+    <phrase title="style_property_group_moods_master_desc" version_id="4" version_string="1.0.3"><![CDATA[Controls the display of moods in XenForo.]]></phrase>
+    <phrase title="style_property_memberCardShowMood_description_master" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood on his/her member card pop-up.]]></phrase>
+    <phrase title="style_property_memberCardShowMood_master" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Member Card]]></phrase>
+    <phrase title="style_property_profileShowMood_description_master" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood on his/her profile.]]></phrase>
+    <phrase title="style_property_profileShowMood_master" version_id="1" version_string="1.0.0 Beta 1"><![CDATA[Show User Mood on Profile]]></phrase>
+    <phrase title="style_property_sidebarShowMood_description_master" version_id="4" version_string="1.0.3"><![CDATA[Displays a user's mood in the sidebar block under his/her other information.]]></phrase>
+    <phrase title="style_property_sidebarShowMood_master" version_id="4" version_string="1.0.3"><![CDATA[Show User Mood on Sidebar]]></phrase>
+    <phrase title="style_property_threadShowMood_description_master" version_id="4" version_string="1.0.3"><![CDATA[Display a user's mood under his/her avatar inside threads (includes quick reply avatar).]]></phrase>
+    <phrase title="style_property_threadShowMood_master" version_id="4" version_string="1.0.3"><![CDATA[Show User Mood on Thread View]]></phrase>
   </phrases>
   <route_prefixes>
     <route_type type="admin">
@@ -261,7 +261,7 @@
 		</xen:if>
 	</div>
 </xen:if>]]></template>
-    <template title="mood_display.css" version_id="5" version_string="1.0.4"><![CDATA[.userMood
+    <template title="mood_display.css" version_id="7" version_string="1.1.1"><![CDATA[.userMood
 {
 	padding-top: 10px;
 }
@@ -274,19 +274,26 @@
 .userInfo .userMood
 {
 	float: right;
+	margin-top: -40px;
+}
+
+.xenOverlay.memberCard .userInfo .userMood a
+{
+	margin-right: 0;
 }
 
 .profilePage .userMood
 {
-	margin-top: -7px;
+	padding-top: 3px;
 }
 
 .avatarHolder .userMood img
 {
-	display: block;
 	margin-left: auto;
 	margin-right: auto;
 }]]></template>
+    <template title="mood_display_member_view" version_id="7" version_string="1.1.1"><![CDATA[<dt>{xen:phrase mood}:</dt>
+	<dd><xen:include template="mood_display" /></dd>]]></template>
     <template title="news_feed_item_user_mood" version_id="5" version_string="1.0.4"><![CDATA[<h3 class="description"><xen:if is="{$mood.old}">{xen:phrase news_feed_user_mood_changed,
 	'username={xen:helper username, $user, 'primaryText'}',
 	'oldMood=<em>{$mood.old}</em>',
@@ -296,4 +303,5 @@
 	'newMood=<em>{$mood.new}</em>'
 }</xen:if></h3>]]></template>
   </templates>
+  <bb_code_media_sites/>
 </addon>
