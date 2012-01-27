@@ -1,6 +1,10 @@
 Change Log
 ----
 
+Version 1.1.2 (27 Jan 2012)
+- Move all template edits into hooks.
+- Some code improvements.
+
 Version 1.1.1 (22 Dec 2010)
 - Fix install bug if styles directory doesn't exist.
 - Fix "Undefined offset" error on mood changes.
