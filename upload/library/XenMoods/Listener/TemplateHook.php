@@ -8,7 +8,14 @@
 class XenMoods_Listener_TemplateHook
 {
 	/**
-	 * Initialise the code event
+	 * Temporary cache of mood displays.
+	 *
+	 * @var array
+	 */
+	protected static $_cache;
+
+	/**
+	 * Initialise the code event.
 	 *
 	 * @param string Name of the template hook
 	 * @param string Contents of the hook block
@@ -19,63 +26,150 @@ class XenMoods_Listener_TemplateHook
 	 */
 	public static function init($name, &$contents, $params, XenForo_Template_Abstract $template)
 	{
-		new self($name, $contents, $params, $template);
+		// add mood displays around the place
+		switch ($name)
+		{
+			case 'sidebar_visitor_panel_stats':
+				self::_addMoodDisplay(
+					$template,
+					'',
+					$contents,
+					$template->getParam('visitor'),
+					'sidebarShowMood',
+					FALSE
+				);
+				break;
+
+			case 'member_card_links':
+				self::_addMoodDisplay(
+					$template,
+					'',
+					$contents,
+					$template->getParam('user'),
+					'memberCardShowMood'
+				);
+				break;
+
+			case 'member_view_info_block':
+				self::_addMoodDisplay(
+					$template,
+					'',
+					$contents,
+					$template->getParam('user'),
+					'profileShowMood',
+					TRUE,
+					'mood_display_member_view'
+				);
+				break;
+
+			case 'message_user_info_avatar':
+				self::_addMoodDisplay(
+					$template,
+					'<!-- slot: message_user_info_avatar -->',
+					$contents,
+					$params['user'],
+					'threadShowMood',
+					FALSE
+				);
+				break;
+		}
 	}
 
 	/**
-	 * Construct and execute code event.
+	 * Helper function to add mood display into hook.
 	 *
-	 * @param string Name of the template hook
-	 * @param string Contents of the hook block
-	 * @param array Parameters passed to this code event
 	 * @param XenForo_Template_Abstract
+	 * @param string Needle to hook on to (empty for pure pre/append)
+	 * @param string Contents of the hook block
+	 * @param array User of the mood to be displayed
+	 * @param string Style property to check (null to disable check)
+	 * @param boolean Set to true to prepend, false to append
+	 * @param string Override mood display template
 	 *
 	 * @return void
 	 */
-	protected function __construct($name, &$contents, $params, XenForo_Template_Abstract $template)
+	protected static function _addMoodDisplay(XenForo_Template_Abstract $template, $needle, &$contents, $user, $styleProperty = NULL, $prepend = TRUE, $templateName = NULL)
 	{
-		// mood display on quick reply and message view
-		if ($name == 'message_user_info_avatar')
+		// check style property
+		if (isset($styleProperty) AND XenForo_Template_Helper_Core::styleProperty($styleProperty) == FALSE)
 		{
-			// check style property
-			if (XenForo_Template_Helper_Core::styleProperty('threadShowMood') == FALSE)
+			return;
+		}
+
+		// generate the mood template
+		$moodDisplay = self::_getMoodTemplate($template, $user, $templateName);
+
+		// pure prepend/append
+		if (empty($needle))
+		{
+			// do a bit of flip-flopping
+			if ($prepend)
 			{
-				return;
+				$contents = $moodDisplay . $contents;
+			}
+			else
+			{
+				$contents = $contents . $moodDisplay;
 			}
 
-			// generate the mood template
-			$moodDisplay = $this->_getMoodTemplate($template, $params['user']);
-
-			// add it to the master template
-			$needle = '<!-- slot: message_user_info_avatar -->';
-			$contents = str_replace($needle, $needle . $moodDisplay, $contents);
+			return;
 		}
+
+		// do more flip-flopping!
+		if ($prepend)
+		{
+			$replace = $moodDisplay . $needle;
+		}
+		else
+		{
+			$replace = $needle . $moodDisplay;
+		}
+
+		// add it to the master template
+		$contents = str_replace($needle, $replace, $contents);
 	}
 
 	/**
 	 * Helper function to generate mood display.
 	 *
 	 * @param XenForo_Template_Abstract
-	 * @param array Users details of the mood to be displayed
+	 * @param array User of the mood to be displayed
+	 * @param string Mood display template name
 	 *
-	 * @return string Compiled mood_display template
+	 * @return string Compiled mood display template
 	 */
-	protected function _getMoodTemplate(XenForo_Template_Abstract $template, $user)
+	protected static function _getMoodTemplate(XenForo_Template_Abstract $template, $user, $templateName = 'mood_display')
 	{
+		// happens when we don't set a value in self::_addMoodDisplay
+		if (empty($templateName))
+		{
+			$templateName = 'mood_display';
+		}
+
+		// quick and dirty cache prevents rendering a user more than once per page load
+		if (isset(self::$_cache[$templateName][$user['user_id']]))
+		{
+			return self::$_cache[$templateName][$user['user_id']];
+		}
+
 		$globalParams = $template->getParams();
-		$model = $this->_getMoodModel();
+		$model = self::_getMoodModel();
 
 		$params = array(
 			'user' => $user,
 			'visitor' => $globalParams['visitor'],
 			'requestPaths' => $globalParams['requestPaths'],
-			'moods' => $this->_getMoodData(),
-			'defaultMoodId' => $model->getDefaultMoodId($this->_getMoodData()),
+			'moods' => self::_getMoodData(),
+			'defaultMoodId' => $model->getDefaultMoodId(self::_getMoodData()),
 			'canViewMoods' => $model->canViewMoods(),
 			'canHaveMood' => $model->canHaveMood()
 		);
 
-		return $template->create('mood_display', $params)->render();
+		// render and add to our makeshift cache
+		$display = $template->create($templateName, $params)->render();
+		self::$_cache[$templateName][$user['user_id']] = $display;
+
+		return $display;
 	}
 
 	/**
@@ -83,7 +177,7 @@ class XenMoods_Listener_TemplateHook
 	 *
 	 * @return array List of moods
 	 */
-	protected function _getMoodData()
+	protected static function _getMoodData()
 	{
 		return XenForo_Application::get('moods');
 	}
@@ -93,7 +187,7 @@ class XenMoods_Listener_TemplateHook
 	 *
 	 * @return XenMoods_Model_Mood
 	 */
-	protected function _getMoodModel()
+	protected static function _getMoodModel()
 	{
 		return XenForo_Model::create('XenMoods_Model_Mood');
 	}

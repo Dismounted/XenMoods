@@ -8,7 +8,7 @@
 class XenMoods_Listener_InitDependencies
 {
 	/**
-	 * Initialise the code event
+	 * Initialise the code event.
 	 *
 	 * @param XenForo_Dependencies_Abstract
 	 * @param array Already pre-loaded data
@@ -17,27 +17,14 @@ class XenMoods_Listener_InitDependencies
 	 */
 	public static function init(XenForo_Dependencies_Abstract $dependencies, array $data)
 	{
-		new self($dependencies, $data);
-	}
-
-	/**
-	 * Construct and execute code event.
-	 *
-	 * @param XenForo_Dependencies_Abstract
-	 * @param array Already pre-loaded data
-	 *
-	 * @return void
-	 */
-	protected function __construct(XenForo_Dependencies_Abstract $dependencies, array $data)
-	{
 		// only execute if we are a public-facing view
 		if ($dependencies instanceof XenForo_Dependencies_Public)
 		{
-			$moods = $this->_loadMoodDataRegistry();
+			$moods = self::_loadMoodDataRegistry();
 
 			if (!is_array($moods))
 			{
-				$moods = $this->_rebuildMoodCache();
+				$moods = self::_rebuildMoodCache();
 			}
 			XenForo_Application::set('moods', $moods);
 		}
@@ -48,7 +35,7 @@ class XenMoods_Listener_InitDependencies
 	 *
 	 * @return array|null List of moods or null if no such entry exists
 	 */
-	protected function _loadMoodDataRegistry()
+	protected static function _loadMoodDataRegistry()
 	{
 		return XenForo_Model::create('XenForo_Model_DataRegistry')->get('moods');
 	}
@@ -58,7 +45,7 @@ class XenMoods_Listener_InitDependencies
 	 *
 	 * @return XenMoods_Model_Mood
 	 */
-	protected function _getMoodModel()
+	protected static function _getMoodModel()
 	{
 		return XenForo_Model::create('XenMoods_Model_Mood');
 	}
@@ -68,8 +55,8 @@ class XenMoods_Listener_InitDependencies
 	 *
 	 * @return array Mood cache data
 	 */
-	protected function _rebuildMoodCache()
+	protected static function _rebuildMoodCache()
 	{
-		return $this->_getMoodModel()->rebuildMoodCache();
+		return self::_getMoodModel()->rebuildMoodCache();
 	}
 }

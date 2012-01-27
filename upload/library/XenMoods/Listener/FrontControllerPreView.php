@@ -8,7 +8,7 @@
 class XenMoods_Listener_FrontControllerPreView
 {
 	/**
-	 * Initialise the code event
+	 * Initialise the code event.
 	 *
 	 * @param XenForo_FrontController
 	 * @param XenForo_ControllerResponse_Abstract
@@ -19,29 +19,14 @@ class XenMoods_Listener_FrontControllerPreView
 	 */
 	public static function init(XenForo_FrontController $fc, XenForo_ControllerResponse_Abstract &$controllerResponse, XenForo_ViewRenderer_Abstract &$viewRenderer, array &$containerParams)
 	{
-		new self($fc, $controllerResponse, $viewRenderer, $containerParams);
-	}
-
-	/**
-	 * Construct and execute code event.
-	 *
-	 * @param XenForo_FrontController
-	 * @param XenForo_ControllerResponse_Abstract
-	 * @param XenForo_ViewRenderer_Abstract
-	 * @param array Parameters used to help prepare the container
-	 *
-	 * @return void
-	 */
-	protected function __construct(XenForo_FrontController $fc, XenForo_ControllerResponse_Abstract &$controllerResponse, XenForo_ViewRenderer_Abstract &$viewRenderer, array &$containerParams)
-	{
 		// only execute if we are a public-facing view
 		// assumes init_dependencies listener runs correctly!
 		if ($controllerResponse instanceof XenForo_ControllerResponse_View AND XenForo_Application::isRegistered('moods'))
 		{
-			$moodModel = $this->_getMoodModel();
+			$moodModel = self::_getMoodModel();
 			$params = array(
-				'moods' => $this->_getMoodData(),
-				'defaultMoodId' => $moodModel->getDefaultMoodId($this->_getMoodData()),
+				'moods' => self::_getMoodData(),
+				'defaultMoodId' => $moodModel->getDefaultMoodId(self::_getMoodData()),
 				'canViewMoods' => $moodModel->canViewMoods(),
 				'canHaveMood' => $moodModel->canHaveMood()
 			);
@@ -56,7 +41,7 @@ class XenMoods_Listener_FrontControllerPreView
 	 *
 	 * @return array List of moods
 	 */
-	protected function _getMoodData()
+	protected static function _getMoodData()
 	{
 		return XenForo_Application::get('moods');
 	}
@@ -66,7 +51,7 @@ class XenMoods_Listener_FrontControllerPreView
 	 *
 	 * @return XenMoods_Model_Mood
 	 */
-	protected function _getMoodModel()
+	protected static function _getMoodModel()
 	{
 		return XenForo_Model::create('XenMoods_Model_Mood');
 	}

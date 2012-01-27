@@ -8,7 +8,7 @@
 class XenMoods_Listener_LoadClassModel
 {
 	/**
-	 * Initialise the code event
+	 * Initialise the code event.
 	 *
 	 * @param string The name of the class to be created
 	 * @param array A modifiable list of classes that wish to extend the class.
@@ -17,34 +17,10 @@ class XenMoods_Listener_LoadClassModel
 	 */
 	public static function init($class, array &$extend)
 	{
-		new self($class, $extend);
-	}
-
-	/**
-	 * Construct and execute code event.
-	 *
-	 * @param string The name of the class to be created
-	 * @param array A modifiable list of classes that wish to extend the class.
-	 *
-	 * @return void
-	 */
-	protected function __construct($class, array &$extend)
-	{
+		// extend with XenMoods-specific methods
 		if ($class == 'XenForo_Model_User')
 		{
-			$this->_extendUserModel($extend);
+			$extend[] = 'XenMoods_XFCP_Model_User';
 		}
-	}
-
-	/**
-	 * Extends XenForo_Model_User with XenMoods-specific methods.
-	 *
-	 * @param array A modifiable list of classes that wish to extend the class.
-	 *
-	 * @return void
-	 */
-	protected function _extendUserModel(array &$extend)
-	{
-		$extend[] = 'XenMoods_XFCP_Model_User';
 	}
 }
