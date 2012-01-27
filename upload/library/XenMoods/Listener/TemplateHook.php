@@ -35,7 +35,8 @@ class XenMoods_Listener_TemplateHook
 					'',
 					$contents,
 					$template->getParam('visitor'),
-					'sidebarShowMood'
+					'sidebarShowMood',
+					FALSE
 				);
 				break;
 
@@ -56,7 +57,8 @@ class XenMoods_Listener_TemplateHook
 					$contents,
 					$template->getParam('user'),
 					'profileShowMood',
-					TRUE
+					TRUE,
+					'mood_display_member_view'
 				);
 				break;
 
@@ -82,10 +84,11 @@ class XenMoods_Listener_TemplateHook
 	 * @param array User of the mood to be displayed
 	 * @param string Style property to check (null to disable check)
 	 * @param boolean Set to true to prepend, false to append
+	 * @param string Override mood display template
 	 *
 	 * @return void
 	 */
-	protected static function _addMoodDisplay(XenForo_Template_Abstract $template, $needle, &$contents, $user, $styleProperty = NULL, $prepend = TRUE)
+	protected static function _addMoodDisplay(XenForo_Template_Abstract $template, $needle, &$contents, $user, $styleProperty = NULL, $prepend = TRUE, $templateName = NULL)
 	{
 		// check style property
 		if (isset($styleProperty) AND XenForo_Template_Helper_Core::styleProperty($styleProperty) == FALSE)
@@ -94,7 +97,7 @@ class XenMoods_Listener_TemplateHook
 		}
 
 		// generate the mood template
-		$moodDisplay = self::_getMoodTemplate($template, $user);
+		$moodDisplay = self::_getMoodTemplate($template, $user, $templateName);
 
 		// pure prepend/append
 		if (empty($needle))
@@ -131,14 +134,22 @@ class XenMoods_Listener_TemplateHook
 	 *
 	 * @param XenForo_Template_Abstract
 	 * @param array User of the mood to be displayed
+	 * @param string Mood display template name
 	 *
-	 * @return string Compiled mood_display template
+	 * @return string Compiled mood display template
 	 */
-	protected static function _getMoodTemplate(XenForo_Template_Abstract $template, $user)
+	protected static function _getMoodTemplate(XenForo_Template_Abstract $template, $user, $templateName = 'mood_display')
 	{
-		if (isset(self::$_cache[$user['user_id']]))
+		// happens when we don't set a value in self::_addMoodDisplay
+		if (empty($templateName))
 		{
-			return self::$_cache[$user['user_id']];
+			$templateName = 'mood_display';
+		}
+
+		// quick and dirty cache prevents rendering a user more than once per page load
+		if (isset(self::$_cache[$templateName][$user['user_id']]))
+		{
+			return self::$_cache[$templateName][$user['user_id']];
 		}
 
 		$globalParams = $template->getParams();
@@ -154,8 +165,9 @@ class XenMoods_Listener_TemplateHook
 			'canHaveMood' => $model->canHaveMood()
 		);
 
-		$display = $template->create('mood_display', $params)->render();
-		self::$_cache[$user['user_id']] = $display;
+		// render and add to our makeshift cache
+		$display = $template->create($templateName, $params)->render();
+		self::$_cache[$templateName][$user['user_id']] = $display;
 
 		return $display;
 	}
