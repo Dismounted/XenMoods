@@ -275,6 +275,18 @@
 	display: block;
 }
 
+.sidebar .userMood a
+{
+	display: block;
+	margin-left: 110px;
+}
+
+.avatarHolder .userMood img
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .userInfo .userMood
 {
 	position: absolute;
@@ -290,12 +302,6 @@
 .profilePage .userMood
 {
 	padding-top: 3px;
-}
-
-.avatarHolder .userMood img
-{
-	margin-left: auto;
-	margin-right: auto;
 }]]></template>
     <template title="mood_display_member_view" version_id="7" version_string="1.1.1"><![CDATA[<dt>{xen:phrase mood}:</dt>
 	<dd><xen:include template="mood_display" /></dd>]]></template>
