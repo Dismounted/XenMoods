@@ -1,6 +1,11 @@
 Change Log
 ----
 
+Version 1.1.3 (28 Jan 2012)
+- Fix member card positioning (blocked by user status).
+- Fix sidebar tooltip positioning in Chrome.
+- Update readme.
+
 Version 1.1.2 (27 Jan 2012)
 - Move all template edits into hooks.
 - Some code improvements.
