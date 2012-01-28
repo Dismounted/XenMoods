@@ -13,7 +13,7 @@ Installation
 3. Click the *+ Install Add-on* button.
 4. Select *addon_xenmoods.xml* as the file to upload.
 5. Click *Install Add-on* to confirm the installation of XenMoods.
-6. Set the appropriate permissions by going to [I]Users[/I], and clicking [I]User Group Permissions[/I].
+6. Set the appropriate permissions by going to *Users*, and clicking *User Group Permissions*.
 
 Display Locations
 ----
@@ -23,6 +23,8 @@ Moods are currently displayed in four locations which can be turned on or off th
 - Thread View (XenMoods, Show User Mood on Thread View)
 - Member Card (XenMoods, Show User Mood on Member Card)
 - Member Profile (XenMoods, Show User Mood on Profile)
+
+Changes to a user's mood will also appear as an event in the *Recent Activity* news feed.
 
 Adding, Editing and Deleting Moods
 ----
