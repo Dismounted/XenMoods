@@ -265,7 +265,7 @@
 		</xen:if>
 	</div>
 </xen:if>]]></template>
-    <template title="mood_display.css" version_id="7" version_string="1.1.1"><![CDATA[.userMood
+    <template title="mood_display.css" version_id="8" version_string="1.1.2"><![CDATA[.userMood
 {
 	padding-top: 10px;
 }
@@ -277,8 +277,9 @@
 
 .userInfo .userMood
 {
-	float: right;
-	margin-top: -40px;
+	position: absolute;
+	top: -10px;
+	right: 20px;
 }
 
 .xenOverlay.memberCard .userInfo .userMood a
